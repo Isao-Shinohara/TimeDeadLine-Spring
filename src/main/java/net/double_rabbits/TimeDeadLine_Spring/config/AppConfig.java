@@ -34,9 +34,9 @@ public class AppConfig
 	}
 
 	@Bean
-	public TimeController TimeController()
+	public TurnBasedController TimeController()
 	{
-		return new TimeController();
+		return new TurnBasedController();
 	}
 }
 

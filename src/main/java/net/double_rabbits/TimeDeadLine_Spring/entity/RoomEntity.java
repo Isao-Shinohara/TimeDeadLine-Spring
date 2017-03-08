@@ -28,7 +28,7 @@ public class RoomEntity extends BaseEntity
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<RoomUserEntity> roomUserEntityList;
 	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private TimeEntity timeEntity;
+	private TurnBasedEntity turnBasedEntity;
 
 	public RoomEntity()
 	{

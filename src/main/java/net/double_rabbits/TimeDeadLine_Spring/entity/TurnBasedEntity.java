@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TimeEntity extends BaseEntity
+public class TurnBasedEntity extends BaseEntity
 {
 	@Id
 	@GeneratedValue
@@ -18,18 +18,39 @@ public class TimeEntity extends BaseEntity
 	@OneToOne
 	private RoomEntity roomEntity;
 
+	private Boolean hasBattleStarted;
+	private Boolean hasBattleEnded;
+	private Boolean canCountDown;
 	private int turn;
 	private int remainSeconds;
 
-	public TimeEntity()
+	public TurnBasedEntity()
 	{
 		super();
+		this.hasBattleStarted = false;
+		this.hasBattleEnded = false;
 		this.turn = 0;
 		this.remainSeconds = 10;
 	}
 
+	public void BattleStart()
+	{
+		this.hasBattleStarted = true;
+	}
+
+	public void BattleEnd()
+	{
+		this.hasBattleEnded = true;
+	}
+
+	public Boolean CanCountDown()
+	{
+		return this.hasBattleStarted && this.canCountDown;
+	}
+
 	public void CountDown()
 	{
+		if (this.remainSeconds <= 0) return;
 		this.remainSeconds--;
 	}
 }

@@ -3,7 +3,7 @@ package net.double_rabbits.TimeDeadLine_Spring.service;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
-import net.double_rabbits.TimeDeadLine_Spring.entity.TimeEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
 
@@ -17,9 +17,9 @@ public class RoomService extends BaseService
 			roomEntity = new RoomEntity(userEntity.getUserId(), battleModeType, roomNumber);
 			roomEntity.AddUserEntity(userEntity);
 
-			TimeEntity timeEntity = new TimeEntity();
+			TurnBasedEntity timeEntity = new TurnBasedEntity();
 			timeEntity.setRoomEntity(roomEntity);
-			roomEntity.setTimeEntity(timeEntity);
+			roomEntity.setTurnBasedEntity(timeEntity);
 
 			this.roomRepository.save(roomEntity);
 
