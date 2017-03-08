@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
 
 @Entity
 @Data
@@ -22,6 +23,7 @@ public class RoomEntity extends BaseEntity
 	private Long roomId;
 	private Long ownerUserId;
 	private Long roomUserId;
+	private BattleModeType battleModeType;
 	private int roomNumber;
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<RoomUserEntity> roomUserEntityList;
@@ -33,10 +35,11 @@ public class RoomEntity extends BaseEntity
 		super();
 	}
 
-	public RoomEntity(Long ownerUserId, int roomNumber)
+	public RoomEntity(Long ownerUserId, BattleModeType battleModeType, int roomNumber)
 	{
 		super();
 		this.ownerUserId = ownerUserId;
+		this.battleModeType = battleModeType;
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
 	}
