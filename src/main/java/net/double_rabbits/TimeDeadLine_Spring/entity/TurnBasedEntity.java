@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 
 @Entity
 @Data
@@ -21,16 +22,16 @@ public class TurnBasedEntity extends BaseEntity
 	private Boolean hasBattleStarted;
 	private Boolean hasBattleEnded;
 	private Boolean canCountDown;
-	private int turn;
-	private int remainSeconds;
+	private int round;
+	private int seconds;
 
 	public TurnBasedEntity()
 	{
 		super();
 		this.hasBattleStarted = false;
 		this.hasBattleEnded = false;
-		this.turn = 0;
-		this.remainSeconds = 10;
+		this.round = 1;
+		this.seconds = BattleContext.InitialSeconds;
 	}
 
 	public void BattleStart()
@@ -50,7 +51,7 @@ public class TurnBasedEntity extends BaseEntity
 
 	public void CountDown()
 	{
-		if (this.remainSeconds <= 0) return;
-		this.remainSeconds--;
+		if (this.seconds <= 0) return;
+		this.seconds--;
 	}
 }

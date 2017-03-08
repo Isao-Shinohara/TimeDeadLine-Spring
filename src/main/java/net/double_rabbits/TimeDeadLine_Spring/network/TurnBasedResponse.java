@@ -3,25 +3,32 @@ package net.double_rabbits.TimeDeadLine_Spring.network;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class TurnBasedResponse extends BaseResponse
 {
-	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.Time;
+	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.TurnBased;
 	protected PublishType publicshType = PublishType.RoomUser;
 
-	public int RemainSeconds;
+	public Boolean HasBattleStarted;
+	public Boolean HasBattleEnded;
+	public int Round;
+	public int Seconds;
 
 	public TurnBasedResponse()
 	{
 		super();
 	}
 
-	public TurnBasedResponse(int remainSeconds)
+	public TurnBasedResponse(TurnBasedEntity turnBasedEntity)
 	{
 		super();
-		this.RemainSeconds = remainSeconds;
+		this.HasBattleStarted = turnBasedEntity.getHasBattleStarted();
+		this.HasBattleEnded = turnBasedEntity.getHasBattleEnded();
+		this.Round = turnBasedEntity.getRound();
+		this.Seconds = turnBasedEntity.getSeconds();
 	}
 }

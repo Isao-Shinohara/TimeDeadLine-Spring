@@ -5,5 +5,5 @@ public enum MsgPackExtensionType
 	None,
 	Login,
 	CreateRoom,
-	Time,
+	TurnBased,
 }

@@ -28,7 +28,7 @@ public class TurnBasedController
 			}
 			this.service.roomRepository.save(roomEntity);
 
-			TurnBasedResponse response = new TurnBasedResponse(roomEntity.getTurnBasedEntity().getRemainSeconds());
+			TurnBasedResponse response = new TurnBasedResponse(roomEntity.getTurnBasedEntity());
 			map.put(roomEntity.getRoomId(), response);
 		}
 
