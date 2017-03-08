@@ -9,24 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomUserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
-import net.double_rabbits.TimeDeadLine_Spring.network.TimeResponse;
+import net.double_rabbits.TimeDeadLine_Spring.network.TurnBasedResponse;
 import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 
-public class TimeController
+public class TurnBasedController
 {
 	@Autowired
 	protected BaseService service;
 
-	public Map<Long, TimeResponse> CreateResponse()
+	public Map<Long, TurnBasedResponse> CreateResponse()
 	{
-		ConcurrentHashMap<Long, TimeResponse> map = new ConcurrentHashMap<Long, TimeResponse>();
+		ConcurrentHashMap<Long, TurnBasedResponse> map = new ConcurrentHashMap<Long, TurnBasedResponse>();
 		List<RoomEntity> roomEntityList = this.service.roomRepository.findAll();
 
 		for (RoomEntity roomEntity : roomEntityList) {
-			roomEntity.getTimeEntity().CountDown();
+			if (roomEntity.getTurnBasedEntity().CanCountDown()) {
+				roomEntity.getTurnBasedEntity().CountDown();
+			}
 			this.service.roomRepository.save(roomEntity);
 
-			TimeResponse response = new TimeResponse(roomEntity.getTimeEntity().getRemainSeconds());
+			TurnBasedResponse response = new TurnBasedResponse(roomEntity.getTurnBasedEntity().getRemainSeconds());
 			map.put(roomEntity.getRoomId(), response);
 		}
 
@@ -48,4 +50,3 @@ public class TimeController
 		return list;
 	}
 }
-

@@ -7,19 +7,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public class TimeResponse extends BaseResponse
+public class TurnBasedResponse extends BaseResponse
 {
 	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.Time;
 	protected PublishType publicshType = PublishType.RoomUser;
 
 	public int RemainSeconds;
 
-	public TimeResponse()
+	public TurnBasedResponse()
 	{
 		super();
 	}
 
-	public TimeResponse(int remainSeconds)
+	public TurnBasedResponse(int remainSeconds)
 	{
 		super();
 		this.RemainSeconds = remainSeconds;
