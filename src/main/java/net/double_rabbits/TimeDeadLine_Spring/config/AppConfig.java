@@ -2,9 +2,12 @@ package net.double_rabbits.TimeDeadLine_Spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import net.double_rabbits.TimeDeadLine_Spring.controller.BattleStartController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.CreateRoomController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.TurnBasedController;
 import net.double_rabbits.TimeDeadLine_Spring.core.Dispatcher;
 import net.double_rabbits.TimeDeadLine_Spring.core.SendMessageFactory;
-import net.double_rabbits.TimeDeadLine_Spring.controller.*;
 
 @Configuration
 public class AppConfig
@@ -34,9 +37,14 @@ public class AppConfig
 	}
 
 	@Bean
-	public TurnBasedController TimeController()
+	public BattleStartController BattleStartController()
+	{
+		return new BattleStartController();
+	}
+
+	@Bean
+	public TurnBasedController TurnBasedController()
 	{
 		return new TurnBasedController();
 	}
 }
-

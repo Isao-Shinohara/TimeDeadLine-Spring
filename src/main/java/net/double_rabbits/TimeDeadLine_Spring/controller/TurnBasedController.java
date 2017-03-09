@@ -23,9 +23,7 @@ public class TurnBasedController
 		List<RoomEntity> roomEntityList = this.service.roomRepository.findAll();
 
 		for (RoomEntity roomEntity : roomEntityList) {
-			if (roomEntity.getTurnBasedEntity().CanCountDown()) {
-				roomEntity.getTurnBasedEntity().CountDown();
-			}
+			roomEntity.getTurnBasedEntity().CountDown();
 			this.service.roomRepository.save(roomEntity);
 
 			TurnBasedResponse response = new TurnBasedResponse(roomEntity.getTurnBasedEntity());

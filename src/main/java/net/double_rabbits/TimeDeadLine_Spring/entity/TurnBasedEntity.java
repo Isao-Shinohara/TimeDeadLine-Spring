@@ -30,6 +30,7 @@ public class TurnBasedEntity extends BaseEntity
 		super();
 		this.hasBattleStarted = false;
 		this.hasBattleEnded = false;
+		this.canCountDown = false;
 		this.round = 1;
 		this.seconds = BattleContext.InitialSeconds;
 	}
@@ -37,6 +38,7 @@ public class TurnBasedEntity extends BaseEntity
 	public void BattleStart()
 	{
 		this.hasBattleStarted = true;
+		this.canCountDown = true;
 	}
 
 	public void BattleEnd()
@@ -44,13 +46,11 @@ public class TurnBasedEntity extends BaseEntity
 		this.hasBattleEnded = true;
 	}
 
-	public Boolean CanCountDown()
-	{
-		return this.hasBattleStarted && this.canCountDown;
-	}
-
 	public void CountDown()
 	{
+		if (!this.hasBattleStarted) return;
+		if (this.hasBattleEnded) return;
+		if (!this.canCountDown) return;
 		if (this.seconds <= 0) return;
 		this.seconds--;
 	}

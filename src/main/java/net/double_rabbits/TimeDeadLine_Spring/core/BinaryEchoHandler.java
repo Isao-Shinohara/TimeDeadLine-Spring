@@ -2,8 +2,8 @@ package net.double_rabbits.TimeDeadLine_Spring.core;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +39,7 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception
 	{
+		logger.info(String.format("[afterConnectionClosed] session: %s", session.getId()));
 		UserEntity userEntity = this.service.userRepository.findBySessionId(session.getId());
 		if (Objects.equals(userEntity, null)) return;
 
