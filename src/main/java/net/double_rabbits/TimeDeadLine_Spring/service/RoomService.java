@@ -1,5 +1,7 @@
 package net.double_rabbits.TimeDeadLine_Spring.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
@@ -28,5 +30,17 @@ public class RoomService extends BaseService
 		}
 
 		return roomEntity;
+	}
+
+	public List<UserEntity> GetUserEntityListInOwnRoom(UserEntity userEntity)
+	{
+		List<UserEntity> list = new ArrayList<UserEntity>();
+
+		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+		roomEntity.getRoomUserEntityList().forEach(roomUserEntity -> {
+			list.add(this.userRepository.findOne(roomUserEntity.getUserId()));
+		});
+
+		return list;
 	}
 }
