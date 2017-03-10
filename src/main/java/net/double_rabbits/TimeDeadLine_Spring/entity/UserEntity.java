@@ -14,7 +14,7 @@ public class UserEntity
 	private Long userId;
 	private String uid;
 	private String sessionId;
-	private Long roomId;
+	private Long roomId = 0L;
 
 	public UserEntity()
 	{

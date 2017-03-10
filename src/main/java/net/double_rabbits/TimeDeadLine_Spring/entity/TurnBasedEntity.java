@@ -24,6 +24,7 @@ public class TurnBasedEntity extends BaseEntity
 	private Boolean canCountDown;
 	private int round;
 	private int seconds;
+	private int onePeriodSeconds;
 
 	public TurnBasedEntity()
 	{
@@ -32,7 +33,8 @@ public class TurnBasedEntity extends BaseEntity
 		this.hasBattleEnded = false;
 		this.canCountDown = false;
 		this.round = 1;
-		this.seconds = BattleContext.InitialSeconds;
+		this.seconds = BattleContext.OnePeriodSeconds;
+		this.onePeriodSeconds = BattleContext.OnePeriodSeconds;
 	}
 
 	public void BattleStart()
