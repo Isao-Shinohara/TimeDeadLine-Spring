@@ -17,6 +17,7 @@ public class TurnBasedResponse extends BaseResponse
 	public Boolean HasBattleEnded;
 	public int Round;
 	public int Seconds;
+	public int OnePeriodSeconds;
 
 	public TurnBasedResponse()
 	{
@@ -30,5 +31,6 @@ public class TurnBasedResponse extends BaseResponse
 		this.HasBattleEnded = turnBasedEntity.getHasBattleEnded();
 		this.Round = turnBasedEntity.getRound();
 		this.Seconds = turnBasedEntity.getSeconds();
+		this.OnePeriodSeconds = turnBasedEntity.getOnePeriodSeconds();
 	}
 }
