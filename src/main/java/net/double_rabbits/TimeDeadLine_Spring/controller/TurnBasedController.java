@@ -23,6 +23,8 @@ public class TurnBasedController
 		List<RoomEntity> roomEntityList = this.service.roomRepository.findAll();
 
 		for (RoomEntity roomEntity : roomEntityList) {
+			if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+
 			roomEntity.getTurnBasedEntity().CountDown();
 			this.service.roomRepository.save(roomEntity);
 
