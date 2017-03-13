@@ -6,4 +6,6 @@ public enum MsgPackExtensionType
 	CreateRoom,
 	BattleStart,
 	TurnBased,
+	NextTurn,
+	RoundStart,
 }

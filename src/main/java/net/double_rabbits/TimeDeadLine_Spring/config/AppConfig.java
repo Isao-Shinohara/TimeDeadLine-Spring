@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.CreateRoomController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.NextTurnController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.RoundStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.TurnBasedController;
 import net.double_rabbits.TimeDeadLine_Spring.core.Dispatcher;
 import net.double_rabbits.TimeDeadLine_Spring.core.SendMessageFactory;
@@ -46,5 +48,17 @@ public class AppConfig
 	public TurnBasedController TurnBasedController()
 	{
 		return new TurnBasedController();
+	}
+
+	@Bean
+	public NextTurnController NextTurnController()
+	{
+		return new NextTurnController();
+	}
+
+	@Bean
+	public RoundStartController RoundStartController()
+	{
+		return new RoundStartController();
 	}
 }

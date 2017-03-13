@@ -7,9 +7,9 @@ import net.double_rabbits.TimeDeadLine_Spring.network.BaseRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseResponse;
 import net.double_rabbits.TimeDeadLine_Spring.network.MsgPackExtensionType;
 
-public class BattleStartController extends BaseController<BaseRequest, BaseResponse>
+public class NextTurnController extends BaseController<BaseRequest, BaseResponse>
 {
-	public BattleStartController()
+	public NextTurnController()
 	{
 		this.reqClazz = BaseRequest.class;
 		this.resClazz = BaseResponse.class;
@@ -19,9 +19,9 @@ public class BattleStartController extends BaseController<BaseRequest, BaseRespo
 	public BaseResponse CreateResponse(BaseRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.roomRepository.findOne(this.sendUserEntity.getRoomId());
-		roomEntity.getTurnBasedEntity().BattleStart();
+		roomEntity.getTurnBasedEntity().NextTurn();
 		this.roomService.roomRepository.save(roomEntity);
-		return new BaseResponse(MsgPackExtensionType.BattleStart);
+		return new BaseResponse(MsgPackExtensionType.NextTurn);
 	}
 
 	@Override
