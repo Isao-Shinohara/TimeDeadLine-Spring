@@ -35,4 +35,10 @@ public class TurnBasedResponse extends BaseResponse
 		this.Seconds = turnBasedEntity.getSeconds();
 		this.OnePeriodSeconds = turnBasedEntity.getOnePeriodSeconds();
 	}
+
+	public TurnBasedResponse(MsgPackExtensionType msgPackExtensionType, TurnBasedEntity turnBasedEntity)
+	{
+		this(turnBasedEntity);
+		this.msgPackExtensionType = msgPackExtensionType;
+	}
 }
