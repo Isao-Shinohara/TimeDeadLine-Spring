@@ -12,7 +12,6 @@ public class BaseResponse
 	protected static final Logger logger = LoggerFactory.getLogger(BaseResponse.class);
 
 	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.None;
-	protected PublishType publicshType = PublishType.Self;
 
 	public BaseResponse()
 	{

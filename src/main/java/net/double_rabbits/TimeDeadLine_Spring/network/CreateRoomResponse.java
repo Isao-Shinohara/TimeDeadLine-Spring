@@ -9,19 +9,11 @@ import lombok.EqualsAndHashCode;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class CreateRoomResponse extends BaseResponse
 {
-	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.CreateRoom;
-	protected PublishType publicshType = PublishType.RoomUser;
-
 	public Long RoomId;
-
-	public CreateRoomResponse()
-	{
-		super();
-	}
 
 	public CreateRoomResponse(Long roomId)
 	{
-		super();
+		super(MsgPackExtensionType.CreateRoom);
 		this.RoomId = roomId;
 	}
 }
