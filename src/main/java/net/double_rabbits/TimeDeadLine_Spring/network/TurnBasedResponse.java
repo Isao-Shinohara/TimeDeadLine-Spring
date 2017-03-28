@@ -10,9 +10,6 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class TurnBasedResponse extends BaseResponse
 {
-	protected MsgPackExtensionType msgPackExtensionType = MsgPackExtensionType.TurnBased;
-	protected PublishType publicshType = PublishType.RoomUser;
-
 	public Boolean HasBattleStarted;
 	public Boolean HasBattleEnded;
 	public Boolean IsInputPhase;
@@ -20,25 +17,19 @@ public class TurnBasedResponse extends BaseResponse
 	public int Seconds;
 	public int OnePeriodSeconds;
 
-	public TurnBasedResponse()
-	{
-		super();
-	}
-
 	public TurnBasedResponse(TurnBasedEntity turnBasedEntity)
 	{
-		super();
+		this(MsgPackExtensionType.TurnBased, turnBasedEntity);
+	}
+
+	public TurnBasedResponse(MsgPackExtensionType msgPackExtensionType, TurnBasedEntity turnBasedEntity)
+	{
+		super(msgPackExtensionType);
 		this.HasBattleStarted = turnBasedEntity.getHasBattleStarted();
 		this.HasBattleEnded = turnBasedEntity.getHasBattleEnded();
 		this.IsInputPhase = turnBasedEntity.getIsInputPhase();
 		this.Round = turnBasedEntity.getRound();
 		this.Seconds = turnBasedEntity.getSeconds();
 		this.OnePeriodSeconds = turnBasedEntity.getOnePeriodSeconds();
-	}
-
-	public TurnBasedResponse(MsgPackExtensionType msgPackExtensionType, TurnBasedEntity turnBasedEntity)
-	{
-		this(turnBasedEntity);
-		this.msgPackExtensionType = msgPackExtensionType;
 	}
 }

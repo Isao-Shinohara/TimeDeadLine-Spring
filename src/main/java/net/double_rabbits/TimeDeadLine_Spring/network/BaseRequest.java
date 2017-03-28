@@ -10,9 +10,4 @@ public class BaseRequest
 	public BaseRequest()
 	{
 	}
-
-	public BaseRequest(String uid)
-	{
-		this.Uid = uid;
-	}
 }

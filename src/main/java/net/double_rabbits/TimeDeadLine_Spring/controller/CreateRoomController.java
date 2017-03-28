@@ -7,6 +7,7 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
 import net.double_rabbits.TimeDeadLine_Spring.network.CreateRoomRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.CreateRoomResponse;
+import net.double_rabbits.TimeDeadLine_Spring.network.PlayerStatusValue;
 
 public class CreateRoomController extends BaseController<CreateRoomRequest, CreateRoomResponse>
 {
@@ -20,7 +21,11 @@ public class CreateRoomController extends BaseController<CreateRoomRequest, Crea
 	public CreateRoomResponse CreateResponse(CreateRoomRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.Create(this.sendUserEntity, BattleModeType.values()[req.BattleModeType], req.RoomNumber);
-		return new CreateRoomResponse(roomEntity.getRoomId());
+
+		List<PlayerStatusValue> playerStatusValueList = new ArrayList<PlayerStatusValue>();
+		playerStatusValueList.add(new PlayerStatusValue(242));
+
+		return new CreateRoomResponse(roomEntity.getRoomId(), playerStatusValueList);
 	}
 
 	@Override
