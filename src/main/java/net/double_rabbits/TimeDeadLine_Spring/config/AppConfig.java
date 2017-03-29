@@ -2,6 +2,7 @@ package net.double_rabbits.TimeDeadLine_Spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import net.double_rabbits.TimeDeadLine_Spring.controller.BattleEntryController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.CreateRoomController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
@@ -36,6 +37,12 @@ public class AppConfig
 	public CreateRoomController CreateRoomController()
 	{
 		return new CreateRoomController();
+	}
+
+	@Bean
+	public BattleEntryController BattleEntryController()
+	{
+		return new BattleEntryController();
 	}
 
 	@Bean
