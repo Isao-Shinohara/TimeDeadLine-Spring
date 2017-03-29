@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
@@ -25,10 +27,14 @@ public class RoomEntity extends BaseEntity
 	private Long roomUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
-	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<RoomUserEntity> roomUserEntityList;
-	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL)
 	private TurnBasedEntity turnBasedEntity;
+	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<RoomUserEntity> roomUserEntityList;
+	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<UnitEntity> unitEntityList;
 
 	public RoomEntity()
 	{

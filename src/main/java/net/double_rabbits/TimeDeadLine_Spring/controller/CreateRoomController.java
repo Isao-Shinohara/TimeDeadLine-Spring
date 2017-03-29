@@ -23,9 +23,9 @@ public class CreateRoomController extends BaseController<CreateRoomRequest, Crea
 	{
 		RoomEntity roomEntity = this.roomService.Create(this.sendUserEntity, BattleModeType.values()[req.BattleModeType], req.RoomNumber);
 
-		this.unitService.Create(roomEntity.getRoomId());
-		this.unitService.Entry(roomEntity.getRoomId(), this.sendUserEntity.getUserId());
-		List<UnitEntity> unitEntityList = this.unitService.GetByRoomIdAndUserId(roomEntity.getRoomId(), this.sendUserEntity.getUserId());
+		this.unitService.Create(roomEntity);
+		this.unitService.Entry(roomEntity, this.sendUserEntity.getUserId());
+		List<UnitEntity> unitEntityList = this.unitService.GetUnitByRoomEntity(roomEntity);
 
 		List<UnitStatusValue> unitStatusValueList = new ArrayList<UnitStatusValue>();
 		for (UnitEntity unitEntity : unitEntityList) {

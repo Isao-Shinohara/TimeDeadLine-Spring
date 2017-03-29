@@ -3,6 +3,7 @@ package net.double_rabbits.TimeDeadLine_Spring.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -12,8 +13,9 @@ public class UnitEntity
 	@Id
 	@GeneratedValue
 	private Long unitId;
-	private Long roomId;
 	private Long userId;
+	@ManyToOne
+	private RoomEntity roomEntity;
 
 	public UnitEntity()
 	{
@@ -21,10 +23,10 @@ public class UnitEntity
 		this.userId = 0L;
 	}
 
-	public UnitEntity(Long roomId)
+	public UnitEntity(RoomEntity roomEntity)
 	{
 		this();
-		this.roomId = roomId;
+		this.roomEntity = roomEntity;
 	}
 
 	public boolean HasSetUserId()
