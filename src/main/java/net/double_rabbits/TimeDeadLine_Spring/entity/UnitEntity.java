@@ -18,11 +18,17 @@ public class UnitEntity
 	public UnitEntity()
 	{
 		super();
+		this.userId = 0L;
 	}
 
 	public UnitEntity(Long roomId)
 	{
-		super();
+		this();
 		this.roomId = roomId;
+	}
+
+	public boolean HasSetUserId()
+	{
+		return this.userId > 0;
 	}
 }
