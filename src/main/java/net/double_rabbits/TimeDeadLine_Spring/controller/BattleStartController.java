@@ -28,6 +28,6 @@ public class BattleStartController extends BaseController<BaseRequest, TurnBased
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.roomService.GetUserEntityListInOwnRoom(this.sendUserEntity);
+		return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 	}
 }

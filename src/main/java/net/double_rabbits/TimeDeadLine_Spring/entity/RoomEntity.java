@@ -27,6 +27,7 @@ public class RoomEntity extends BaseEntity
 	private Long roomUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
+
 	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL)
 	private TurnBasedEntity turnBasedEntity;
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -27,6 +27,6 @@ public class NextTurnController extends BaseController<BaseRequest, TurnBasedRes
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.roomService.GetUserEntityListInOwnRoom(this.sendUserEntity);
+		return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 	}
 }
