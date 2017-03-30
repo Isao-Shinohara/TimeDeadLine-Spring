@@ -10,13 +10,11 @@ import lombok.EqualsAndHashCode;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class BattleEntryResponse extends BaseResponse
 {
-	public Long RoomId;
 	public List<UnitStatusValue> UnitStatusValueList;
 
-	public BattleEntryResponse(Long roomId, List<UnitStatusValue> unitStatusValueList)
+	public BattleEntryResponse(List<UnitStatusValue> unitStatusValueList)
 	{
-		super(MsgPackExtensionType.CreateRoom);
-		this.RoomId = roomId;
+		super(MsgPackExtensionType.BattleEntry);
 		this.UnitStatusValueList = unitStatusValueList;
 	}
 }

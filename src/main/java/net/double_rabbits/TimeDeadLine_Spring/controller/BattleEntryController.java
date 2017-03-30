@@ -32,7 +32,7 @@ public class BattleEntryController extends BaseController<BattleEntryRequest, Ba
 			unitStatusValueList.add(new UnitStatusValue(unitEntity));
 		}
 
-		return new BattleEntryResponse(roomEntity.getRoomId(), unitStatusValueList);
+		return new BattleEntryResponse(unitStatusValueList);
 	}
 
 	@Override
