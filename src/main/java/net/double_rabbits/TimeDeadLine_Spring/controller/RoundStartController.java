@@ -27,6 +27,6 @@ public class RoundStartController extends BaseController<BaseRequest, TurnBasedR
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.roomService.GetUserEntityListInOwnRoom(this.sendUserEntity);
+		return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 	}
 }

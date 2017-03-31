@@ -1,6 +1,5 @@
 package net.double_rabbits.TimeDeadLine_Spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseRequest;
@@ -23,8 +22,6 @@ public class LoginController extends BaseController<BaseRequest, BaseResponse>
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		List<UserEntity> list = new ArrayList<UserEntity>();
-		list.add(this.sendUserEntity);
-		return list;
+		return this.userService.GetUserEntityOnlyList(this.sendUserEntity);
 	}
 }

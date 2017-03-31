@@ -11,7 +11,9 @@ import net.double_rabbits.TimeDeadLine_Spring.core.MsgPackUtil;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 import net.double_rabbits.TimeDeadLine_Spring.service.RoomService;
+import net.double_rabbits.TimeDeadLine_Spring.service.TurnBasedService;
 import net.double_rabbits.TimeDeadLine_Spring.service.UnitService;
+import net.double_rabbits.TimeDeadLine_Spring.service.UserService;
 
 abstract public class BaseController<T, U>
 {
@@ -26,10 +28,16 @@ abstract public class BaseController<T, U>
 	protected BaseService service;
 
 	@Autowired
+	protected UserService userService;
+
+	@Autowired
 	protected RoomService roomService;
 
 	@Autowired
 	protected UnitService unitService;
+
+	@Autowired
+	protected TurnBasedService turnBasedService;
 
 	@SuppressWarnings("unchecked")
 	public void Initialize(UserEntity sendUserEntity, byte[] data) throws JsonParseException, JsonMappingException, IOException

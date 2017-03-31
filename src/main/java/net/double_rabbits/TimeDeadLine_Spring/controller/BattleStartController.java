@@ -18,16 +18,13 @@ public class BattleStartController extends BaseController<BaseRequest, TurnBased
 	@Override
 	public TurnBasedResponse CreateResponse(BaseRequest req)
 	{
-		RoomEntity roomEntity = this.roomService.roomRepository.findOne(this.sendUserEntity.getRoomId());
-		roomEntity.getTurnBasedEntity().BattleStart();
-		this.roomService.roomRepository.save(roomEntity);
-
+		RoomEntity roomEntity = this.roomService.BattleStart(this.sendUserEntity);
 		return new TurnBasedResponse(MsgPackExtensionType.BattleStart, roomEntity.getTurnBasedEntity());
 	}
 
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.roomService.GetUserEntityListInOwnRoom(this.sendUserEntity);
+		return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 	}
 }

@@ -6,24 +6,15 @@ import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
+import net.double_rabbits.TimeDeadLine_Spring.network.UnitStatusValue;
 
 @Service
 public class UnitService extends BaseService
 {
-	public void Create(RoomEntity roomEntity)
+	public List<UnitStatusValue> BattleEntry(Long roomId, Long userId)
 	{
-		List<UnitEntity> unitEntityList = new ArrayList<UnitEntity>();
+		RoomEntity roomEntity = this.roomRepository.findOne(roomId);
 
-		for (int i = 0; i < BattleContext.AllUnitNum; i++) {
-			unitEntityList.add(new UnitEntity(roomEntity));
-		}
-
-		this.unitRepository.save(unitEntityList);
-		this.unitRepository.flush();
-	}
-
-	public void Entry(RoomEntity roomEntity, Long userId)
-	{
 		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
 		int count = 0;
 		for (int i = 0; i < BattleContext.AllUnitNum; i++) {
@@ -34,13 +25,25 @@ public class UnitService extends BaseService
 			count++;
 			if (count >= BattleContext.AllUnitNum / BattleContext.TemNum) break;
 		}
-
 		this.unitRepository.save(unitEntityList);
-		this.unitRepository.flush();
+
+		return this.GetUnitStatusValueList(roomEntity);
 	}
 
 	public List<UnitEntity> GetUnitByRoomEntity(RoomEntity roomEntity)
 	{
 		return this.unitRepository.findByRoomEntity(roomEntity);
+	}
+
+	public List<UnitStatusValue> GetUnitStatusValueList(RoomEntity roomEntity)
+	{
+		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
+
+		List<UnitStatusValue> unitStatusValueList = new ArrayList<UnitStatusValue>();
+		for (UnitEntity unitEntity : unitEntityList) {
+			unitStatusValueList.add(new UnitStatusValue(unitEntity));
+		}
+
+		return unitStatusValueList;
 	}
 }

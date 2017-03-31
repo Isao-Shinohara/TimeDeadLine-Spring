@@ -1,6 +1,5 @@
 package net.double_rabbits.TimeDeadLine_Spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
@@ -20,17 +19,12 @@ public class CreateRoomController extends BaseController<CreateRoomRequest, Crea
 	public CreateRoomResponse CreateResponse(CreateRoomRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.Create(this.sendUserEntity, BattleModeType.values()[req.BattleModeType], req.RoomNumber);
-
-		this.unitService.Create(roomEntity);
-
 		return new CreateRoomResponse(roomEntity.getRoomId());
 	}
 
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		List<UserEntity> list = new ArrayList<UserEntity>();
-		list.add(this.sendUserEntity);
-		return list;
+		return this.userService.GetUserEntityOnlyList(this.sendUserEntity);
 	}
 }
