@@ -11,6 +11,13 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 @Service
 public class UserService extends BaseService
 {
+	public List<UserEntity> GetUserEntityOnlyList(UserEntity userEntity)
+	{
+		List<UserEntity> list = new ArrayList<UserEntity>();
+		list.add(userEntity);
+		return list;
+	}
+
 	public List<UserEntity> GetUserEntityListByRoomId(Long roomId)
 	{
 		List<UserEntity> list = new ArrayList<UserEntity>();
