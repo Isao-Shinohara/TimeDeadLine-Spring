@@ -43,6 +43,19 @@ public class RoomService extends BaseService
 		return roomEntity;
 	}
 
+	public void Delete(UserEntity userEntity)
+	{
+		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+		if (!Objects.equals(roomEntity, null)) {
+			if (roomEntity.getRoomUserEntityList().size() <= 1) {
+				this.roomRepository.delete(roomEntity);
+			} else {
+				roomEntity.RemoveUserEntity(userEntity);
+				this.roomRepository.save(roomEntity);
+			}
+		}
+	}
+
 	public RoomEntity BattleEntry(Long roomId, Long userId)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(roomId);

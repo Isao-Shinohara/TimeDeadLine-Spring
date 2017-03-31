@@ -70,7 +70,6 @@ public class RoomEntity extends BaseEntity
 
 	private void updateStartBattle()
 	{
-		logger.info(String.format("%d %d", this.roomUserEntityList.size(), this.battleModeType.ordinal()));
 		this.startBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
 	}
 }

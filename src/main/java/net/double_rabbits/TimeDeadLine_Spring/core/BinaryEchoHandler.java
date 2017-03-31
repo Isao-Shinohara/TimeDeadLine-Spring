@@ -12,9 +12,9 @@ import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.BinaryWebSocketHandler;
-import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
-import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
+import net.double_rabbits.TimeDeadLine_Spring.service.RoomService;
+import net.double_rabbits.TimeDeadLine_Spring.service.UserService;
 
 @Component
 public class BinaryEchoHandler extends BinaryWebSocketHandler
@@ -28,7 +28,10 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 	private Dispatcher dispatcher;
 
 	@Autowired
-	private BaseService service;
+	private UserService userService;
+
+	@Autowired
+	private RoomService roomService;
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception
@@ -40,21 +43,12 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception
 	{
 		logger.info(String.format("[afterConnectionClosed] session: %s", session.getId()));
-		UserEntity userEntity = this.service.userRepository.findBySessionId(session.getId());
+		UserEntity userEntity = this.userService.GetUserEntityBySessionId(session.getId());
 		if (Objects.equals(userEntity, null)) return;
 
-		RoomEntity roomEntity = this.service.roomRepository.findOne(userEntity.getRoomId());
-		if (!Objects.equals(roomEntity, null)) {
-			if (roomEntity.getRoomUserEntityList().size() <= 1) {
-				this.service.roomRepository.delete(roomEntity);
-			} else {
-				roomEntity.RemoveUserEntity(userEntity);
-				this.service.roomRepository.save(roomEntity);
-			}
-		}
-
+		this.roomService.Delete(userEntity);
+		this.userService.Delete(userEntity);
 		this.sessionPool.Remove(session);
-		this.service.userRepository.delete(userEntity);
 	}
 
 	@Override
@@ -66,7 +60,6 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 			map = dispatcher.dispatch(session.getId(), message);
 			for (Entry<UserEntity, BinaryMessage> entry : map.entrySet()) {
 				// Send Message.
-				this.service.userRepository.save(entry.getKey());
 				this.sessionPool.Get(entry.getKey().getSessionId()).sendMessage(entry.getValue());
 			}
 		} catch (IOException e) {

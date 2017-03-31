@@ -11,6 +11,16 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 @Service
 public class UserService extends BaseService
 {
+	public void Delete(UserEntity userEntity)
+	{
+		this.userRepository.delete(userEntity);
+	}
+
+	public UserEntity GetUserEntityBySessionId(String sessionId)
+	{
+		return this.userRepository.findBySessionId(sessionId);
+	}
+
 	public List<UserEntity> GetUserEntityOnlyList(UserEntity userEntity)
 	{
 		List<UserEntity> list = new ArrayList<UserEntity>();
