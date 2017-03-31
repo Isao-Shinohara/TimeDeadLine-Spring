@@ -43,6 +43,25 @@ public class RoomService extends BaseService
 		return roomEntity;
 	}
 
+	public RoomEntity BattleEntry(Long roomId, Long userId)
+	{
+		RoomEntity roomEntity = this.roomRepository.findOne(roomId);
+
+		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
+		int count = 0;
+		for (int i = 0; i < BattleContext.AllUnitNum; i++) {
+			UnitEntity unitEntity = unitEntityList.get(i);
+			if (unitEntity.HasSetUserId()) continue;
+
+			unitEntityList.get(i).setUserId(userId);
+			count++;
+			if (count >= BattleContext.AllUnitNum / BattleContext.TemNum) break;
+		}
+		this.unitRepository.save(unitEntityList);
+
+		return roomEntity;
+	}
+
 	public RoomEntity BattleStart(UserEntity userEntity)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());

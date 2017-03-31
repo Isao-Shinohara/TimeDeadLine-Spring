@@ -24,7 +24,6 @@ public class TurnBasedController
 
 		List<TurnBasedEntity> turnBasedEntityList = this.turnBasedService.CountDown();
 		for (TurnBasedEntity turnBasedEntity : turnBasedEntityList) {
-
 			TurnBasedResponse response = new TurnBasedResponse(turnBasedEntity);
 			map.put(turnBasedEntity.getRoomEntity().getRoomId(), response);
 		}
