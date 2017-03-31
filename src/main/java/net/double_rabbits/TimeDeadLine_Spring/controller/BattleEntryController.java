@@ -1,9 +1,6 @@
 package net.double_rabbits.TimeDeadLine_Spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
-import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleEntryRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleEntryResponse;
@@ -20,16 +17,7 @@ public class BattleEntryController extends BaseController<BattleEntryRequest, Ba
 	@Override
 	public BattleEntryResponse CreateResponse(BattleEntryRequest req)
 	{
-		RoomEntity roomEntity = this.roomService.roomRepository.findOne(req.RoomId);
-
-		this.unitService.Entry(roomEntity, this.sendUserEntity.getUserId());
-		List<UnitEntity> unitEntityList = this.unitService.GetUnitByRoomEntity(roomEntity);
-
-		List<UnitStatusValue> unitStatusValueList = new ArrayList<UnitStatusValue>();
-		for (UnitEntity unitEntity : unitEntityList) {
-			unitStatusValueList.add(new UnitStatusValue(unitEntity));
-		}
-
+		List<UnitStatusValue> unitStatusValueList = this.unitService.BattleEntry(req.RoomId, this.sendUserEntity.getUserId());
 		return new BattleEntryResponse(unitStatusValueList);
 	}
 
