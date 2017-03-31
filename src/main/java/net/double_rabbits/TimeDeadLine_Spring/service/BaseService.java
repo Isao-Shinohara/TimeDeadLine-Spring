@@ -16,11 +16,11 @@ public class BaseService
 	protected static final Logger logger = LoggerFactory.getLogger(BaseService.class);
 
 	@Autowired
-	public RoomRepository roomRepository;
+	protected RoomRepository roomRepository;
 
 	@Autowired
-	public UserRepository userRepository;
+	protected UserRepository userRepository;
 
 	@Autowired
-	public UnitRepository unitRepository;
+	protected UnitRepository unitRepository;
 }
