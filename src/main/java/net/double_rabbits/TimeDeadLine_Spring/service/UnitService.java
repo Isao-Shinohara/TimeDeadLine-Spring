@@ -27,16 +27,23 @@ public class UnitService extends BaseService
 		}
 		this.unitRepository.save(unitEntityList);
 
+		return this.GetUnitStatusValueList(roomEntity);
+	}
+
+	public List<UnitEntity> GetUnitByRoomEntity(RoomEntity roomEntity)
+	{
+		return this.unitRepository.findByRoomEntity(roomEntity);
+	}
+
+	public List<UnitStatusValue> GetUnitStatusValueList(RoomEntity roomEntity)
+	{
+		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
+
 		List<UnitStatusValue> unitStatusValueList = new ArrayList<UnitStatusValue>();
 		for (UnitEntity unitEntity : unitEntityList) {
 			unitStatusValueList.add(new UnitStatusValue(unitEntity));
 		}
 
 		return unitStatusValueList;
-	}
-
-	public List<UnitEntity> GetUnitByRoomEntity(RoomEntity roomEntity)
-	{
-		return this.unitRepository.findByRoomEntity(roomEntity);
 	}
 }

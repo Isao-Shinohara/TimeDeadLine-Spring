@@ -42,4 +42,13 @@ public class RoomService extends BaseService
 
 		return roomEntity;
 	}
+
+	public RoomEntity BattleStart(UserEntity userEntity)
+	{
+		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+		roomEntity.getTurnBasedEntity().BattleStart();
+		this.roomRepository.save(roomEntity);
+
+		return roomEntity;
+	}
 }
