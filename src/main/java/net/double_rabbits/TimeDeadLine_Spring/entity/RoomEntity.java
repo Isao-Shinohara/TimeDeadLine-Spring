@@ -27,6 +27,7 @@ public class RoomEntity extends BaseEntity
 	private Long roomUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
+	private boolean startBattle;
 
 	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL)
 	private TurnBasedEntity turnBasedEntity;
@@ -49,12 +50,14 @@ public class RoomEntity extends BaseEntity
 		this.battleModeType = battleModeType;
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
+		this.startBattle = false;
 	}
 
 	public void AddUserEntity(UserEntity userEntity)
 	{
 		RoomUserEntity roomUserEntity = new RoomUserEntity(userEntity.getUserId(), this);
 		this.roomUserEntityList.add(roomUserEntity);
+		this.updateStartBattle();
 	}
 
 	public void RemoveUserEntity(UserEntity userEntity)
@@ -62,5 +65,12 @@ public class RoomEntity extends BaseEntity
 		this.roomUserEntityList.removeIf(roomUserEntity -> {
 			return roomUserEntity.getUserId() == userEntity.getUserId();
 		});
+		this.updateStartBattle();
+	}
+
+	private void updateStartBattle()
+	{
+		logger.info(String.format("%d %d", this.roomUserEntityList.size(), this.battleModeType.ordinal()));
+		this.startBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
 	}
 }
