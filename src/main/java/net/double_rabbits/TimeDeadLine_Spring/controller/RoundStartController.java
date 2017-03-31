@@ -1,7 +1,7 @@
 package net.double_rabbits.TimeDeadLine_Spring.controller;
 
 import java.util.List;
-import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.MsgPackExtensionType;
@@ -18,10 +18,8 @@ public class RoundStartController extends BaseController<BaseRequest, TurnBasedR
 	@Override
 	public TurnBasedResponse CreateResponse(BaseRequest req)
 	{
-		RoomEntity roomEntity = this.roomService.roomRepository.findOne(this.sendUserEntity.getRoomId());
-		roomEntity.getTurnBasedEntity().RountStart();
-		this.roomService.roomRepository.save(roomEntity);
-		return new TurnBasedResponse(MsgPackExtensionType.RoundStart, roomEntity.getTurnBasedEntity());
+		TurnBasedEntity turnBasedEntity = this.turnBasedService.RoundStart(this.sendUserEntity);
+		return new TurnBasedResponse(MsgPackExtensionType.RoundStart, turnBasedEntity);
 	}
 
 	@Override
