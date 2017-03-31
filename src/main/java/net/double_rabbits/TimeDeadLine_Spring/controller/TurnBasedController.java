@@ -4,29 +4,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.TurnBasedResponse;
+import net.double_rabbits.TimeDeadLine_Spring.service.TurnBasedService;
 import net.double_rabbits.TimeDeadLine_Spring.service.UserService;
 
 public class TurnBasedController
 {
+	@Autowired
+	protected TurnBasedService turnBasedService;
+
 	@Autowired
 	protected UserService userService;
 
 	public Map<Long, TurnBasedResponse> CreateResponse()
 	{
 		ConcurrentHashMap<Long, TurnBasedResponse> map = new ConcurrentHashMap<Long, TurnBasedResponse>();
-		List<RoomEntity> roomEntityList = this.userService.roomRepository.findAll();
 
-		for (RoomEntity roomEntity : roomEntityList) {
-			if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+		List<TurnBasedEntity> turnBasedEntityList = this.turnBasedService.CountDown();
+		for (TurnBasedEntity turnBasedEntity : turnBasedEntityList) {
 
-			roomEntity.getTurnBasedEntity().CountDown();
-			this.userService.roomRepository.save(roomEntity);
-
-			TurnBasedResponse response = new TurnBasedResponse(roomEntity.getTurnBasedEntity());
-			map.put(roomEntity.getRoomId(), response);
+			TurnBasedResponse response = new TurnBasedResponse(turnBasedEntity);
+			map.put(turnBasedEntity.getRoomEntity().getRoomId(), response);
 		}
 
 		return map;

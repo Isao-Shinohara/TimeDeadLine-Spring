@@ -1,5 +1,7 @@
 package net.double_rabbits.TimeDeadLine_Spring.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
@@ -24,5 +26,22 @@ public class TurnBasedService extends BaseService
 		this.roomRepository.save(roomEntity);
 
 		return roomEntity.getTurnBasedEntity();
+	}
+
+	public List<TurnBasedEntity> CountDown()
+	{
+		List<TurnBasedEntity> turnBasedEntityList = new ArrayList<TurnBasedEntity>();
+
+		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
+		for (RoomEntity roomEntity : roomEntityList) {
+			if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+
+			roomEntity.getTurnBasedEntity().CountDown();
+			this.roomRepository.save(roomEntity);
+
+			turnBasedEntityList.add(roomEntity.getTurnBasedEntity());
+		}
+
+		return turnBasedEntityList;
 	}
 }
