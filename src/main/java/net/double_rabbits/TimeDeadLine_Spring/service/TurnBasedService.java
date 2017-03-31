@@ -8,6 +8,15 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 @Service
 public class TurnBasedService extends BaseService
 {
+	public TurnBasedEntity RoundStart(UserEntity userEntity)
+	{
+		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+		roomEntity.getTurnBasedEntity().RountStart();
+		this.roomRepository.save(roomEntity);
+
+		return roomEntity.getTurnBasedEntity();
+	}
+
 	public TurnBasedEntity NextTurn(UserEntity userEntity)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
