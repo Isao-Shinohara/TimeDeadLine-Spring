@@ -20,9 +20,6 @@ public class CreateRoomController extends BaseController<CreateRoomRequest, Crea
 	public CreateRoomResponse CreateResponse(CreateRoomRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.Create(this.sendUserEntity, BattleModeType.values()[req.BattleModeType], req.RoomNumber);
-
-		this.unitService.Create(roomEntity);
-
 		return new CreateRoomResponse(roomEntity.getRoomId());
 	}
 
