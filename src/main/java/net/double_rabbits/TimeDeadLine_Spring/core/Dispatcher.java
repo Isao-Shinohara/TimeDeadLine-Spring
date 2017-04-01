@@ -13,8 +13,8 @@ import net.double_rabbits.TimeDeadLine_Spring.controller.BaseController;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseResponse;
-import net.double_rabbits.TimeDeadLine_Spring.network.MsgPackExtensionType;
 import net.double_rabbits.TimeDeadLine_Spring.repository.UserRepository;
+import net.double_rabbits.TimeDeadLine_Spring.value.MsgPackExtensionType;
 
 public class Dispatcher
 {

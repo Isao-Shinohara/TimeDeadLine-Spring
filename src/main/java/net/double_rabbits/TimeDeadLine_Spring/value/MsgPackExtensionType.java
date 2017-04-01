@@ -1,4 +1,4 @@
-package net.double_rabbits.TimeDeadLine_Spring.network;
+package net.double_rabbits.TimeDeadLine_Spring.value;
 
 public enum MsgPackExtensionType
 {
@@ -9,4 +9,5 @@ public enum MsgPackExtensionType
 	TurnBased,
 	NextTurn,
 	RoundStart,
+	AttackStandy,
 }

@@ -2,6 +2,7 @@ package net.double_rabbits.TimeDeadLine_Spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import net.double_rabbits.TimeDeadLine_Spring.controller.AttackStandyController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleEntryController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.CreateRoomController;
@@ -67,5 +68,11 @@ public class AppConfig
 	public RoundStartController RoundStartController()
 	{
 		return new RoundStartController();
+	}
+
+	@Bean
+	public AttackStandyController AttackStandyController()
+	{
+		return new AttackStandyController();
 	}
 }

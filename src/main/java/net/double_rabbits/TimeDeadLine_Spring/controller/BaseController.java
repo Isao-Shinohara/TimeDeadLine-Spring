@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import net.double_rabbits.TimeDeadLine_Spring.core.MsgPackUtil;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
+import net.double_rabbits.TimeDeadLine_Spring.service.ActionService;
 import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 import net.double_rabbits.TimeDeadLine_Spring.service.RoomService;
 import net.double_rabbits.TimeDeadLine_Spring.service.TurnBasedService;
@@ -38,6 +39,9 @@ abstract public class BaseController<T, U>
 
 	@Autowired
 	protected TurnBasedService turnBasedService;
+
+	@Autowired
+	protected ActionService actionService;
 
 	@SuppressWarnings("unchecked")
 	public void Initialize(UserEntity sendUserEntity, byte[] data) throws JsonParseException, JsonMappingException, IOException

@@ -3,9 +3,9 @@ package net.double_rabbits.TimeDeadLine_Spring.controller;
 import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
-import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
 import net.double_rabbits.TimeDeadLine_Spring.network.CreateRoomRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.CreateRoomResponse;
+import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 public class CreateRoomController extends BaseController<CreateRoomRequest, CreateRoomResponse>
 {
