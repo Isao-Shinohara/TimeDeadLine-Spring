@@ -1,6 +1,7 @@
 package net.double_rabbits.TimeDeadLine_Spring.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
@@ -59,17 +60,42 @@ public class RoomService extends BaseService
 	public RoomEntity BattleEntry(Long roomId, Long userId)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(roomId);
-
 		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
+
+		// For Human.
 		int count = 0;
 		for (int i = 0; i < BattleContext.AllUnitNum; i++) {
 			UnitEntity unitEntity = unitEntityList.get(i);
 			if (unitEntity.HasSetUserId()) continue;
 
-			unitEntityList.get(i).setUserId(userId);
+			unitEntity.SetUnitData(i, userId);
 			count++;
 			if (count >= BattleContext.AllUnitNum / BattleContext.TemNum) break;
 		}
+
+		// For CPU when SingleMode.
+		if (roomEntity.getBattleModeType() == BattleModeType.Single) {
+			for (int i = 0; i < BattleContext.AllUnitNum; i++) {
+				UnitEntity unitEntity = unitEntityList.get(i);
+				if (unitEntity.HasSetUserId()) continue;
+
+				unitEntity.SetCpuData(i);
+			}
+		}
+
+		// Set Random CharacterId.
+		if (roomEntity.isReadyForBattle()) {
+			List<Integer> characterIdList = new ArrayList<Integer>();
+			for (int i = 1; i <= BattleContext.AllUnitNum; i++) {
+				characterIdList.add(i);
+			}
+			Collections.shuffle(characterIdList);
+
+			for (int i = 0; i < BattleContext.AllUnitNum; i++) {
+				unitEntityList.get(i).setCharacterId(characterIdList.get(i));
+			}
+		}
+
 		this.unitRepository.save(unitEntityList);
 
 		return roomEntity;

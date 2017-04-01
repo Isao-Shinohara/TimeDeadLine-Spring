@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 
 @Entity
 @Data
@@ -14,6 +15,12 @@ public class UnitEntity
 	@GeneratedValue
 	private Long unitId;
 	private Long userId;
+	private int characterId;
+	private int teamType;
+	private int positionType;
+	private int hp;
+	private int maxHp;
+
 	@ManyToOne
 	private RoomEntity roomEntity;
 
@@ -21,12 +28,28 @@ public class UnitEntity
 	{
 		super();
 		this.userId = 0L;
+		this.maxHp = 15000;
+		this.hp = this.maxHp;
 	}
 
 	public UnitEntity(RoomEntity roomEntity)
 	{
 		this();
 		this.roomEntity = roomEntity;
+	}
+
+	public void SetUnitData(int index, Long userId)
+	{
+		this.userId = userId;
+
+		int unitNum = (BattleContext.AllUnitNum / BattleContext.TemNum);
+		this.teamType = index / unitNum == 0 ? 1 : 2;
+		this.positionType = (index % unitNum) + 1;
+	}
+
+	public void SetCpuData(int index)
+	{
+		this.SetUnitData(index, -1L);
 	}
 
 	public boolean HasSetUserId()
