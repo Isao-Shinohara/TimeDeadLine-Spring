@@ -20,8 +20,15 @@ public class AttackStandyEntity
 	@ManyToOne
 	private RoomEntity roomEntity;
 
-	public AttackStandyEntity(Long unitId, ActionType actionType)
+	public AttackStandyEntity()
 	{
+		super();
+	}
+
+	public AttackStandyEntity(RoomEntity roomEntity, Long unitId, ActionType actionType)
+	{
+		this();
+		this.roomEntity = roomEntity;
 		this.unitId = unitId;
 		this.actionType = actionType;
 	}

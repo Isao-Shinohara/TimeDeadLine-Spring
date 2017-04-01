@@ -24,7 +24,7 @@ public class RoomUserEntity
 
 	public RoomUserEntity(Long userId, RoomEntity roomEntity)
 	{
-		super();
+		this();
 		this.roomEntity = roomEntity;
 		this.userId = userId;
 	}

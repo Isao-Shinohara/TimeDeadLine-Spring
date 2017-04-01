@@ -16,17 +16,17 @@ public class ActionService extends BaseService
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
 		roomEntity.getAttackStandyEntityList().clear();
-		this.roomRepository.save(roomEntity);
+		this.roomRepository.saveAndFlush(roomEntity);
 	}
 
-	public List<AttackStandyEntity> AttackStandy(UserEntity userEntity, Long unitId, ActionType actionType)
+	public void AttackStandy(UserEntity userEntity, Long unitId, ActionType actionType)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
 
-		AttackStandyEntity attackStandyEntity = new AttackStandyEntity(unitId, actionType);
+		AttackStandyEntity attackStandyEntity = new AttackStandyEntity(roomEntity, unitId, actionType);
 		roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
 
-		return roomEntity.getAttackStandyEntityList();
+		this.roomRepository.saveAndFlush(roomEntity);
 	}
 
 	public List<AttackStandyValue> GetAttackStandyValueList(UserEntity userEntity)
