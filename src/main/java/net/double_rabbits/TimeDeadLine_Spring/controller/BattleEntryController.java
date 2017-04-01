@@ -20,7 +20,7 @@ public class BattleEntryController extends BaseController<BattleEntryRequest, Ba
 	{
 		RoomEntity roomEntity = this.roomService.BattleEntry(req.RoomId, this.sendUserEntity.getUserId());
 		List<UnitStatusValue> unitStatusValueList = this.unitService.GetUnitStatusValueList(roomEntity);
-		return new BattleEntryResponse(roomEntity.isStartBattle(), unitStatusValueList);
+		return new BattleEntryResponse(roomEntity.isReadyForBattle(), unitStatusValueList);
 	}
 
 	@Override
