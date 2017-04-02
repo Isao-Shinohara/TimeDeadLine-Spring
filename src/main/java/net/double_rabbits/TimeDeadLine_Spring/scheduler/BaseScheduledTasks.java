@@ -16,7 +16,7 @@ import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 
 public class BaseScheduledTasks
 {
-	protected static final Logger log = LoggerFactory.getLogger(ScheduledTasksTime.class);
+	protected static final Logger log = LoggerFactory.getLogger(TimeScheduledTasks.class);
 
 	@Autowired
 	protected SendMessageFactory sendMessageFactory;

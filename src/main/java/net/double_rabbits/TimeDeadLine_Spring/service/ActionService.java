@@ -40,4 +40,22 @@ public class ActionService extends BaseService
 
 		return attackStandyValueList;
 	}
+
+	public void DoAction()
+	{
+		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
+		for (RoomEntity roomEntity : roomEntityList) {
+			if (roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+			if (roomEntity.getAttackStandyEntityList().size() <= 0) continue;
+
+			// Do Action.
+			roomEntity.getAttackStandyEntityList().forEach(entity -> {
+				logger.info(String.valueOf(entity.getActionType()));
+				logger.info(String.valueOf(entity.getUnitId()));
+			});
+
+			roomEntity.getAttackStandyEntityList().clear();
+			this.roomRepository.save(roomEntity);
+		}
+	}
 }
