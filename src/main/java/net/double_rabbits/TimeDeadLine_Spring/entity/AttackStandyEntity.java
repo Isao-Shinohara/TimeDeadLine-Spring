@@ -5,27 +5,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 
 @Entity
 @Data
-public class RoomUserEntity
+public class AttackStandyEntity
 {
 	@Id
 	@GeneratedValue
-	private Long roomUserId;
-	private Long userId;
+	private Long attackStandyValueIs;
+	private Long unitId;
+	private ActionType actionType;
+
 	@ManyToOne
 	private RoomEntity roomEntity;
 
-	public RoomUserEntity()
+	public AttackStandyEntity()
 	{
 		super();
 	}
 
-	public RoomUserEntity(Long userId, RoomEntity roomEntity)
+	public AttackStandyEntity(RoomEntity roomEntity, Long unitId, ActionType actionType)
 	{
 		this();
 		this.roomEntity = roomEntity;
-		this.userId = userId;
+		this.unitId = unitId;
+		this.actionType = actionType;
 	}
 }

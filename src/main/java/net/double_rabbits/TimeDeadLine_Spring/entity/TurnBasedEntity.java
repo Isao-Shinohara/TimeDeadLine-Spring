@@ -19,6 +19,7 @@ public class TurnBasedEntity extends BaseEntity
 	@OneToOne
 	private RoomEntity roomEntity;
 
+	private Boolean canCountDown;
 	private Boolean hasBattleStarted;
 	private Boolean hasBattleEnded;
 	private Boolean isInputPhase;
@@ -29,6 +30,7 @@ public class TurnBasedEntity extends BaseEntity
 	public TurnBasedEntity()
 	{
 		super();
+		this.canCountDown = false;
 		this.hasBattleStarted = false;
 		this.hasBattleEnded = false;
 		this.isInputPhase = false;
@@ -64,7 +66,14 @@ public class TurnBasedEntity extends BaseEntity
 		if (this.hasBattleEnded) return;
 		if (!this.isInputPhase) return;
 		if (this.seconds <= 0) {
+			this.canCountDown = false;
 			this.isInputPhase = false;
+			return;
+		}
+
+		// ミリ秒端数調整のためカウントダウン開始のタイミングをわざと1回ずらしている
+		if (!this.canCountDown) {
+			this.canCountDown = true;
 			return;
 		}
 

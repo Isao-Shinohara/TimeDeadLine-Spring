@@ -4,8 +4,8 @@ import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseRequest;
-import net.double_rabbits.TimeDeadLine_Spring.network.MsgPackExtensionType;
 import net.double_rabbits.TimeDeadLine_Spring.network.TurnBasedResponse;
+import net.double_rabbits.TimeDeadLine_Spring.value.MsgPackExtensionType;
 
 public class NextTurnController extends BaseController<BaseRequest, TurnBasedResponse>
 {
@@ -18,6 +18,7 @@ public class NextTurnController extends BaseController<BaseRequest, TurnBasedRes
 	@Override
 	public TurnBasedResponse CreateResponse(BaseRequest req)
 	{
+		this.actionService.NextTurn(this.sendUserEntity);
 		TurnBasedEntity turnBasedEntity = this.turnBasedService.NextTurn(this.sendUserEntity);
 		return new TurnBasedResponse(MsgPackExtensionType.NextTurn, turnBasedEntity);
 	}

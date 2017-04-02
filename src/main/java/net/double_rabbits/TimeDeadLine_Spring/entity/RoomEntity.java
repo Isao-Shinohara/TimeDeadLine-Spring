@@ -13,7 +13,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.double_rabbits.TimeDeadLine_Spring.network.BattleModeType;
+import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 @Entity
 @Data
@@ -37,6 +37,9 @@ public class RoomEntity extends BaseEntity
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<UnitEntity> unitEntityList;
+	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<AttackStandyEntity> attackStandyEntityList;
 
 	public RoomEntity()
 	{

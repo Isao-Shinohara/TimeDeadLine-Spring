@@ -4,18 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.double_rabbits.TimeDeadLine_Spring.entity.TurnBasedEntity;
+import net.double_rabbits.TimeDeadLine_Spring.value.MsgPackExtensionType;
+import net.double_rabbits.TimeDeadLine_Spring.value.TurnBasedValue;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class TurnBasedResponse extends BaseResponse
 {
-	public Boolean HasBattleStarted;
-	public Boolean HasBattleEnded;
-	public Boolean IsInputPhase;
-	public int Round;
-	public int Seconds;
-	public int OnePeriodSeconds;
+	public TurnBasedValue TurnBasedValue;
 
 	public TurnBasedResponse(TurnBasedEntity turnBasedEntity)
 	{
@@ -25,11 +22,6 @@ public class TurnBasedResponse extends BaseResponse
 	public TurnBasedResponse(MsgPackExtensionType msgPackExtensionType, TurnBasedEntity turnBasedEntity)
 	{
 		super(msgPackExtensionType);
-		this.HasBattleStarted = turnBasedEntity.getHasBattleStarted();
-		this.HasBattleEnded = turnBasedEntity.getHasBattleEnded();
-		this.IsInputPhase = turnBasedEntity.getIsInputPhase();
-		this.Round = turnBasedEntity.getRound();
-		this.Seconds = turnBasedEntity.getSeconds();
-		this.OnePeriodSeconds = turnBasedEntity.getOnePeriodSeconds();
+		this.TurnBasedValue = new TurnBasedValue(turnBasedEntity);
 	}
 }
