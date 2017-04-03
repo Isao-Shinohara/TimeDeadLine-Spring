@@ -14,6 +14,7 @@ public class RoomUserEntity
 	@GeneratedValue
 	private Long roomUserId;
 	private Long userId;
+
 	@ManyToOne
 	private RoomEntity roomEntity;
 

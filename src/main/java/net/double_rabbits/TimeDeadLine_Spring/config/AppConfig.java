@@ -6,6 +6,7 @@ import net.double_rabbits.TimeDeadLine_Spring.controller.AttackStandyController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleEntryController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.BattleStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.CreateRoomController;
+import net.double_rabbits.TimeDeadLine_Spring.controller.GetActionResultController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.NextTurnController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.RoundStartController;
@@ -74,5 +75,11 @@ public class AppConfig
 	public AttackStandyController AttackStandyController()
 	{
 		return new AttackStandyController();
+	}
+
+	@Bean
+	public GetActionResultController GetActionResultController()
+	{
+		return new GetActionResultController();
 	}
 }

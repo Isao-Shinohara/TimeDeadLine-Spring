@@ -10,4 +10,5 @@ public enum MsgPackExtensionType
 	NextTurn,
 	RoundStart,
 	AttackStandy,
+	GetActionResult,
 }

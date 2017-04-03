@@ -3,9 +3,12 @@ package net.double_rabbits.TimeDeadLine_Spring.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
+import net.double_rabbits.TimeDeadLine_Spring.value.ActionResultValue;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.AttackStandyValue;
 
@@ -16,6 +19,7 @@ public class ActionService extends BaseService
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
 		roomEntity.getAttackStandyEntityList().clear();
+		roomEntity.getActionResultEntityList().clear();
 		this.roomRepository.saveAndFlush(roomEntity);
 	}
 
@@ -50,12 +54,42 @@ public class ActionService extends BaseService
 
 			// Do Action.
 			roomEntity.getAttackStandyEntityList().forEach(entity -> {
-				logger.info(String.valueOf(entity.getActionType()));
-				logger.info(String.valueOf(entity.getUnitId()));
+				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
+				// TODO:
+				ActionResultDetailEntity actionResultDetailEntity = new ActionResultDetailEntity(entity.getUnitId() + 5, 100, actionResultEntity);
+				actionResultEntity.getActionResultDetailEntityList().add(actionResultDetailEntity);
+				roomEntity.getActionResultEntityList().add(actionResultEntity);
 			});
 
 			roomEntity.getAttackStandyEntityList().clear();
 			this.roomRepository.save(roomEntity);
 		}
+	}
+
+	public List<ActionResultValue> GetActionResultList(UserEntity userEntity)
+	{
+		RoomEntity roomEntity;
+
+		// Wait Until Get Result.
+		while (true) {
+			roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+			if (roomEntity.HasGotRoundResult()) {
+				break;
+			}
+
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		List<ActionResultValue> actionResultValueList = new ArrayList<ActionResultValue>();
+		roomEntity.getActionResultEntityList().forEach(entity -> {
+			actionResultValueList.add(new ActionResultValue(entity));
+		});
+
+		return actionResultValueList;
 	}
 }

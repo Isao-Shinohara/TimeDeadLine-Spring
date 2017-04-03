@@ -40,6 +40,9 @@ public class RoomEntity extends BaseEntity
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AttackStandyEntity> attackStandyEntityList;
+	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ActionResultEntity> actionResultEntityList;
 
 	public RoomEntity()
 	{
@@ -53,6 +56,7 @@ public class RoomEntity extends BaseEntity
 		this.battleModeType = battleModeType;
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
+		this.actionResultEntityList = new ArrayList<ActionResultEntity>();
 		this.readyForBattle = false;
 	}
 
@@ -69,6 +73,11 @@ public class RoomEntity extends BaseEntity
 			return roomUserEntity.getUserId() == userEntity.getUserId();
 		});
 		this.updateReadyForBattle();
+	}
+
+	public boolean HasGotRoundResult()
+	{
+		return !this.getTurnBasedEntity().getIsInputPhase() && this.getAttackStandyEntityList().size() <= 0;
 	}
 
 	private void updateReadyForBattle()
