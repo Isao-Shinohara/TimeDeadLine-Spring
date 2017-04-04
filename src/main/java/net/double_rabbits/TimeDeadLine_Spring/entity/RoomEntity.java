@@ -2,6 +2,7 @@ package net.double_rabbits.TimeDeadLine_Spring.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -78,6 +79,11 @@ public class RoomEntity extends BaseEntity
 	public boolean HasGotRoundResult()
 	{
 		return !this.getTurnBasedEntity().getIsInputPhase() && this.getAttackStandyEntityList().size() <= 0;
+	}
+
+	public List<UnitEntity> GetOpponentUnitEntityListByUnitId(Long unitId)
+	{
+		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() != unitId).collect(Collectors.toList());
 	}
 
 	private void updateReadyForBattle()

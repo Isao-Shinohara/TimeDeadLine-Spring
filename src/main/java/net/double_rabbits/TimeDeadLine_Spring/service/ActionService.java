@@ -3,11 +3,12 @@ package net.double_rabbits.TimeDeadLine_Spring.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
+import net.double_rabbits.TimeDeadLine_Spring.helper.ActionHelperFactory;
+import net.double_rabbits.TimeDeadLine_Spring.helper.BaseActionHelper;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionResultValue;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.AttackStandyValue;
@@ -55,9 +56,8 @@ public class ActionService extends BaseService
 			// Do Action.
 			roomEntity.getAttackStandyEntityList().forEach(entity -> {
 				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
-				// TODO:
-				ActionResultDetailEntity actionResultDetailEntity = new ActionResultDetailEntity(entity.getUnitId() + 5, 100, actionResultEntity);
-				actionResultEntity.getActionResultDetailEntityList().add(actionResultDetailEntity);
+				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity);
+				actionResultEntity.getActionResultDetailEntityList().add(actionHelper.Do());
 				roomEntity.getActionResultEntityList().add(actionResultEntity);
 			});
 
