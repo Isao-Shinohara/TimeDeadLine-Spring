@@ -12,7 +12,7 @@ public class ActionHelperFactory
 			case Attack:
 				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
 			case Skill:
-				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
+				return new ActionSkillHelper(actionResultEntity, defenseUnitIdList);
 			case Defense:
 				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
 			case Revival:

@@ -19,7 +19,7 @@ abstract public class BaseActionHelper
 		this.defenseUnitIdList = defenseUnitIdList;
 	}
 
-	abstract public ActionResultDetailEntity Do();
+	abstract public List<ActionResultDetailEntity> Do();
 
 	protected List<UnitEntity> getOpponentUnitEntityList()
 	{

@@ -2,7 +2,6 @@ package net.double_rabbits.TimeDeadLine_Spring.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
@@ -54,13 +53,11 @@ public class ActionService extends BaseService
 			if (roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
 			if (roomEntity.getAttackStandyEntityList().size() <= 0) continue;
 
-			List<Long> defenseUnitIdList = roomEntity.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
-
 			// Do Action.
 			roomEntity.getAttackStandyEntityList().forEach(entity -> {
 				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
-				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, defenseUnitIdList);
-				actionResultEntity.getActionResultDetailEntityList().add(actionHelper.Do());
+				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList());
+				actionResultEntity.setActionResultDetailEntityList(actionHelper.Do());
 				roomEntity.getActionResultEntityList().add(actionResultEntity);
 			});
 

@@ -14,6 +14,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 @Entity
@@ -85,6 +86,11 @@ public class RoomEntity extends BaseEntity
 	{
 		UnitEntity unitEntity = this.getByUnitId(unitId);
 		return this.unitEntityList.stream().filter(entity -> entity.getUserId() != unitEntity.getUserId()).collect(Collectors.toList());
+	}
+
+	public List<Long> GetDefenseUnitIdList()
+	{
+		return this.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
 	}
 
 	private void updateReadyForBattle()
