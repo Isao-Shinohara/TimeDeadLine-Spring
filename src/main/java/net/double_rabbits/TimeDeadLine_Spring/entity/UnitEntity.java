@@ -28,7 +28,7 @@ public class UnitEntity
 	{
 		super();
 		this.userId = 0L;
-		this.maxHp = 15000;
+		this.maxHp = BattleContext.UnitMaxHp;
 		this.hp = this.maxHp;
 	}
 

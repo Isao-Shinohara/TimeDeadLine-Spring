@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import net.double_rabbits.TimeDeadLine_Spring.repository.ActionResultRepository;
 import net.double_rabbits.TimeDeadLine_Spring.repository.RoomRepository;
 import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
 import net.double_rabbits.TimeDeadLine_Spring.repository.UserRepository;
@@ -23,4 +24,7 @@ public class BaseService
 
 	@Autowired
 	protected UnitRepository unitRepository;
+
+	@Autowired
+	protected ActionResultRepository actionResultRepository;
 }

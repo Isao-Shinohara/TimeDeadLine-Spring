@@ -2,6 +2,7 @@ package net.double_rabbits.TimeDeadLine_Spring.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 @Entity
@@ -40,6 +42,9 @@ public class RoomEntity extends BaseEntity
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AttackStandyEntity> attackStandyEntityList;
+	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ActionResultEntity> actionResultEntityList;
 
 	public RoomEntity()
 	{
@@ -53,6 +58,7 @@ public class RoomEntity extends BaseEntity
 		this.battleModeType = battleModeType;
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
+		this.actionResultEntityList = new ArrayList<ActionResultEntity>();
 		this.readyForBattle = false;
 	}
 
@@ -69,6 +75,27 @@ public class RoomEntity extends BaseEntity
 			return roomUserEntity.getUserId() == userEntity.getUserId();
 		});
 		this.updateReadyForBattle();
+	}
+
+	public boolean HasGotRoundResult()
+	{
+		return !this.getTurnBasedEntity().getIsInputPhase() && this.getAttackStandyEntityList().size() <= 0;
+	}
+
+	public UnitEntity GetUnitEntityByUnitId(Long unitId)
+	{
+		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() == unitId).findFirst().orElse(null);
+	}
+
+	public List<UnitEntity> GetOpponentUnitEntityListByUnitId(Long unitId)
+	{
+		UnitEntity unitEntity = this.GetUnitEntityByUnitId(unitId);
+		return this.unitEntityList.stream().filter(entity -> entity.getUserId() != unitEntity.getUserId()).collect(Collectors.toList());
+	}
+
+	public List<Long> GetDefenseUnitIdList()
+	{
+		return this.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
 	}
 
 	private void updateReadyForBattle()

@@ -10,7 +10,7 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.TurnBasedResponse;
 
 @Component
-public class ScheduledTasksTime extends BaseScheduledTasks
+public class TimeScheduledTasks extends BaseScheduledTasks
 {
 	@Autowired
 	private TurnBasedController timeController;
