@@ -30,5 +30,4 @@ public class ActionAttackHelper extends BaseActionHelper
 
 		return actionResultDetailEntityList;
 	}
-
 }

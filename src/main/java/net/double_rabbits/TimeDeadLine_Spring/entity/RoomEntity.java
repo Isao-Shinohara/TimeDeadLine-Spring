@@ -82,9 +82,14 @@ public class RoomEntity extends BaseEntity
 		return !this.getTurnBasedEntity().getIsInputPhase() && this.getAttackStandyEntityList().size() <= 0;
 	}
 
+	public UnitEntity GetUnitEntityByUnitId(Long unitId)
+	{
+		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() == unitId).findFirst().orElse(null);
+	}
+
 	public List<UnitEntity> GetOpponentUnitEntityListByUnitId(Long unitId)
 	{
-		UnitEntity unitEntity = this.getByUnitId(unitId);
+		UnitEntity unitEntity = this.GetUnitEntityByUnitId(unitId);
 		return this.unitEntityList.stream().filter(entity -> entity.getUserId() != unitEntity.getUserId()).collect(Collectors.toList());
 	}
 
@@ -96,10 +101,5 @@ public class RoomEntity extends BaseEntity
 	private void updateReadyForBattle()
 	{
 		this.readyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
-	}
-
-	private UnitEntity getByUnitId(Long unitId)
-	{
-		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() == unitId).findFirst().orElse(null);
 	}
 }

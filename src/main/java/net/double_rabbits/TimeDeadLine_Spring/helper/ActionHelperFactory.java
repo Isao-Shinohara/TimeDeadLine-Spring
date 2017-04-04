@@ -14,11 +14,11 @@ public class ActionHelperFactory
 			case Skill:
 				return new ActionSkillHelper(actionResultEntity, defenseUnitIdList);
 			case Defense:
-				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
+				return new ActionDefenseHelper(actionResultEntity, defenseUnitIdList);
 			case Revival:
-				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
+				return new ActionRevivalHelper(actionResultEntity, defenseUnitIdList);
 			default:
-				return new ActionAttackHelper(actionResultEntity, defenseUnitIdList);
+				return new ActionNoneHelper(actionResultEntity, defenseUnitIdList);
 		}
 	}
 }
