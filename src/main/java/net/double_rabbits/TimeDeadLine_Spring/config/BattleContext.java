@@ -10,4 +10,5 @@ public class BattleContext
 	public static int UnitMaxHp = 15000;
 	public static int MinAttackDamage = 1000;
 	public static int MaxAttackDamage = 3000;
+	public static float DefenseRate = 0.5f;
 }

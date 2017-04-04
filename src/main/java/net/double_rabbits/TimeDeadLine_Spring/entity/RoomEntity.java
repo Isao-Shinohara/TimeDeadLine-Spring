@@ -83,11 +83,17 @@ public class RoomEntity extends BaseEntity
 
 	public List<UnitEntity> GetOpponentUnitEntityListByUnitId(Long unitId)
 	{
-		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() != unitId).collect(Collectors.toList());
+		UnitEntity unitEntity = this.getByUnitId(unitId);
+		return this.unitEntityList.stream().filter(entity -> entity.getUserId() != unitEntity.getUserId()).collect(Collectors.toList());
 	}
 
 	private void updateReadyForBattle()
 	{
 		this.readyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
+	}
+
+	private UnitEntity getByUnitId(Long unitId)
+	{
+		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() == unitId).findFirst().orElse(null);
 	}
 }
