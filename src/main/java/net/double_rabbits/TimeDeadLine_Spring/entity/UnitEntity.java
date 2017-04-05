@@ -56,4 +56,14 @@ public class UnitEntity
 	{
 		return this.userId > 0;
 	}
+
+	public boolean IsAlive()
+	{
+		return this.hp > 0;
+	}
+
+	public boolean IsDead()
+	{
+		return !this.IsAlive();
+	}
 }

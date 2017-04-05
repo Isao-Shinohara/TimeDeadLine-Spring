@@ -21,7 +21,7 @@ public class ActionAttackHelper extends BaseActionHelper
 	{
 		// Target.
 		List<UnitEntity> opponentUnitEntityList = this.getOpponentAliveUnitEntityList();
-		if (opponentUnitEntityList.size() <= 0) { return new ArrayList<ActionResultDetailEntity>(); }
+		if (opponentUnitEntityList.size() <= 0) { return this.getNonActionResultDetailEntityList(); }
 		Collections.shuffle(opponentUnitEntityList);
 		UnitEntity targetUnitEntity = opponentUnitEntityList.get(0);
 

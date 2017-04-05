@@ -19,6 +19,7 @@ public class ActionRevivalHelper extends BaseActionHelper
 	{
 		// Target.
 		UnitEntity targetUnitEntity = this.actionResultEntity.getRoomEntity().GetUnitEntityByUnitId(this.actionResultEntity.getUnitId());
+		if (targetUnitEntity.IsAlive()) { return this.getNonActionResultDetailEntityList(); }
 
 		// Revival.
 		List<ActionResultDetailEntity> actionResultDetailEntityList = new ArrayList<ActionResultDetailEntity>();

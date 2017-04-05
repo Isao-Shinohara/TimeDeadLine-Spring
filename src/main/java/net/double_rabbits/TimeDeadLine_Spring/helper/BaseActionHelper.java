@@ -1,5 +1,6 @@
 package net.double_rabbits.TimeDeadLine_Spring.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
@@ -45,6 +46,11 @@ abstract public class BaseActionHelper
 	{
 		RoomEntity roomEntity = this.actionResultEntity.getRoomEntity();
 		return roomEntity.GetOpponentDeadUnitEntityListByUnitId(this.actionResultEntity.getUnitId());
+	}
+
+	protected List<ActionResultDetailEntity> getNonActionResultDetailEntityList()
+	{
+		return new ArrayList<ActionResultDetailEntity>();
 	}
 
 	protected int calcHpByDamage(UnitEntity targetUnitEntity, int minDamage, int maxDamage)

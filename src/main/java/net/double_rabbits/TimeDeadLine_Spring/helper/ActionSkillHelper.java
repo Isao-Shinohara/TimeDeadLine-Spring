@@ -20,7 +20,7 @@ public class ActionSkillHelper extends BaseActionHelper
 	{
 		// Target.
 		List<UnitEntity> opponentUnitEntityList = this.getOpponentAliveUnitEntityList();
-		if (opponentUnitEntityList.size() <= 0) { return new ArrayList<ActionResultDetailEntity>(); }
+		if (opponentUnitEntityList.size() <= 0) { return this.getNonActionResultDetailEntityList(); }
 
 		// Damage.
 		List<ActionResultDetailEntity> actionResultDetailEntityList = new ArrayList<ActionResultDetailEntity>();
