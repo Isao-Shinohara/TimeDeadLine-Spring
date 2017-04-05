@@ -35,6 +35,18 @@ abstract public class BaseActionHelper
 		return roomEntity.GetOpponentUnitEntityListByUnitId(this.actionResultEntity.getUnitId());
 	}
 
+	protected List<UnitEntity> getOpponentAliveUnitEntityList()
+	{
+		RoomEntity roomEntity = this.actionResultEntity.getRoomEntity();
+		return roomEntity.GetOpponentAliveUnitEntityListByUnitId(this.actionResultEntity.getUnitId());
+	}
+
+	protected List<UnitEntity> getOpponentDeadUnitEntityList()
+	{
+		RoomEntity roomEntity = this.actionResultEntity.getRoomEntity();
+		return roomEntity.GetOpponentDeadUnitEntityListByUnitId(this.actionResultEntity.getUnitId());
+	}
+
 	protected int calcHpByDamage(UnitEntity targetUnitEntity, int minDamage, int maxDamage)
 	{
 		// Calc.
@@ -44,7 +56,7 @@ abstract public class BaseActionHelper
 
 		// Save Data.
 		targetUnitEntity.setHp(remainHp);
-		this.unitRepository.save(targetUnitEntity);
+		this.unitRepository.saveAndFlush(targetUnitEntity);
 
 		return remainHp > 0 ? remainHp : 0;
 	}

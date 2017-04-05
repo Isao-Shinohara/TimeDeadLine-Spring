@@ -19,7 +19,8 @@ public class ActionSkillHelper extends BaseActionHelper
 	public List<ActionResultDetailEntity> Do()
 	{
 		// Target.
-		List<UnitEntity> opponentUnitEntityList = this.getOpponentUnitEntityList();
+		List<UnitEntity> opponentUnitEntityList = this.getOpponentAliveUnitEntityList();
+		if (opponentUnitEntityList.size() <= 0) { return new ArrayList<ActionResultDetailEntity>(); }
 
 		// Damage.
 		List<ActionResultDetailEntity> actionResultDetailEntityList = new ArrayList<ActionResultDetailEntity>();

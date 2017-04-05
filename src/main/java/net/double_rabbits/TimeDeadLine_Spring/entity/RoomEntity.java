@@ -93,6 +93,18 @@ public class RoomEntity extends BaseEntity
 		return this.unitEntityList.stream().filter(entity -> entity.getUserId() != unitEntity.getUserId()).collect(Collectors.toList());
 	}
 
+	public List<UnitEntity> GetOpponentAliveUnitEntityListByUnitId(Long unitId)
+	{
+		List<UnitEntity> unitEntityList = this.GetOpponentUnitEntityListByUnitId(unitId);
+		return unitEntityList.stream().filter(entity -> entity.getHp() > 0).collect(Collectors.toList());
+	}
+
+	public List<UnitEntity> GetOpponentDeadUnitEntityListByUnitId(Long unitId)
+	{
+		List<UnitEntity> unitEntityList = this.GetOpponentUnitEntityListByUnitId(unitId);
+		return unitEntityList.stream().filter(entity -> entity.getHp() <= 0).collect(Collectors.toList());
+	}
+
 	public List<Long> GetDefenseUnitIdList()
 	{
 		return this.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
