@@ -2,42 +2,19 @@ package net.double_rabbits.TimeDeadLine_Spring.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.AttackStandyResponse;
-import net.double_rabbits.TimeDeadLine_Spring.repository.AttackStandyEntityRepository;
-import net.double_rabbits.TimeDeadLine_Spring.repository.RoomRepository;
-import net.double_rabbits.TimeDeadLine_Spring.repository.UserRepository;
-import net.double_rabbits.TimeDeadLine_Spring.service.ActionService;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.AttackStandyValue;
 import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 @Component
-public class ActionScheduledTasks extends BaseScheduledTasks
+public class AllCpuAttackStandyScheduledTasks extends BaseScheduledTasks
 {
-	@Autowired
-	private ActionService actionService;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private RoomRepository roomRepository;
-
-	@Autowired
-	private AttackStandyEntityRepository attackStandyEntityRepository;
-
-	@Scheduled(cron = "* * * * * *")
-	public void DoAllAction()
-	{
-		this.actionService.DoAllAction();
-	}
-
 	@Scheduled(cron = "* * * * * *")
 	public void AllCpuAttackStandy()
 	{

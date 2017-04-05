@@ -12,6 +12,10 @@ import net.double_rabbits.TimeDeadLine_Spring.core.SendMessageFactory;
 import net.double_rabbits.TimeDeadLine_Spring.core.SessionPool;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseResponse;
+import net.double_rabbits.TimeDeadLine_Spring.repository.AttackStandyEntityRepository;
+import net.double_rabbits.TimeDeadLine_Spring.repository.RoomRepository;
+import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
+import net.double_rabbits.TimeDeadLine_Spring.repository.UserRepository;
 import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 
 public class BaseScheduledTasks
@@ -26,6 +30,18 @@ public class BaseScheduledTasks
 
 	@Autowired
 	protected BaseService service;
+
+	@Autowired
+	protected UserRepository userRepository;
+
+	@Autowired
+	protected RoomRepository roomRepository;
+
+	@Autowired
+	protected UnitRepository unitRepository;
+
+	@Autowired
+	protected AttackStandyEntityRepository attackStandyEntityRepository;
 
 	protected void sendMessage(BaseResponse response, List<UserEntity> receiveUserEntityList)
 	{
