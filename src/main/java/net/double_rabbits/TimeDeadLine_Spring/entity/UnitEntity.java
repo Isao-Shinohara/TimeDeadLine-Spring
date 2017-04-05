@@ -49,7 +49,7 @@ public class UnitEntity
 
 	public void SetCpuData(int index)
 	{
-		this.SetUnitData(index, -1L);
+		this.SetUnitData(index, BattleContext.CpuUserId);
 	}
 
 	public boolean HasSetUserId()

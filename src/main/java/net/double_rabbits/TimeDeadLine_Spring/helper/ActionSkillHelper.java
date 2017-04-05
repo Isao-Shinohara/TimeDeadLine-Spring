@@ -27,7 +27,6 @@ public class ActionSkillHelper extends BaseActionHelper
 		opponentUnitEntityList.forEach(entity -> {
 			int remainHp = this.calcHpByDamage(entity, BattleContext.MinSkillDamage, BattleContext.MaxSkillDamage);
 			actionResultDetailEntityList.add(new ActionResultDetailEntity(entity.getUnitId(), remainHp, this.actionResultEntity));
-
 		});
 
 		return actionResultDetailEntityList;

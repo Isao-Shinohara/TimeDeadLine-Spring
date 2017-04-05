@@ -46,7 +46,51 @@ public class ActionService extends BaseService
 		return attackStandyValueList;
 	}
 
-	public void DoAction()
+	public List<ActionResultValue> GetActionResultList(UserEntity userEntity)
+	{
+		RoomEntity roomEntity;
+
+		// Wait Until Get Result.
+		while (true) {
+			roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
+			if (roomEntity.HasGotRoundResult()) {
+				break;
+			}
+
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		List<ActionResultValue> actionResultValueList = new ArrayList<ActionResultValue>();
+		roomEntity.getActionResultEntityList().forEach(entity -> {
+			actionResultValueList.add(new ActionResultValue(entity));
+		});
+
+		return actionResultValueList;
+	}
+
+	///// By Scheduler.
+	// public void AllCpuAttackStandy()
+	// {
+	// List<RoomEntity> roomEntityList =
+	// this.roomRepository.findByBattleModeType(BattleModeType.Single);
+	// for (RoomEntity roomEntity : roomEntityList) {
+	// if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+	//
+	// roomEntity.GetNotAttackStandyCpuUnitEntityList().forEach(entity -> {
+	// AttackStandyEntity attackStandyEntity = new
+	// AttackStandyEntity(roomEntity, entity.getUnitId(), ActionType.Attack);
+	// roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
+	// });
+	// }
+	//
+	// this.roomRepository.save(roomEntityList);
+	// }
+
+	public void DoAllAction()
 	{
 		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
 		for (RoomEntity roomEntity : roomEntityList) {
@@ -64,32 +108,5 @@ public class ActionService extends BaseService
 			roomEntity.getAttackStandyEntityList().clear();
 			this.roomRepository.save(roomEntity);
 		}
-	}
-
-	public List<ActionResultValue> GetActionResultList(UserEntity userEntity)
-	{
-		RoomEntity roomEntity;
-
-		// Wait Until Get Result.
-		while (true) {
-			roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
-			if (roomEntity.HasGotRoundResult()) {
-				break;
-			}
-
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		List<ActionResultValue> actionResultValueList = new ArrayList<ActionResultValue>();
-		roomEntity.getActionResultEntityList().forEach(entity -> {
-			actionResultValueList.add(new ActionResultValue(entity));
-		});
-
-		return actionResultValueList;
 	}
 }

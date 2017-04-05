@@ -14,6 +14,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
@@ -87,6 +88,11 @@ public class RoomEntity extends BaseEntity
 		return this.unitEntityList.stream().filter(entity -> entity.getUnitId() == unitId).findFirst().orElse(null);
 	}
 
+	public List<UnitEntity> GetUnitEntityListByUserId(Long userId)
+	{
+		return this.unitEntityList.stream().filter(entity -> entity.getUserId() == userId).collect(Collectors.toList());
+	}
+
 	public List<UnitEntity> GetOpponentUnitEntityListByUnitId(Long unitId)
 	{
 		UnitEntity unitEntity = this.GetUnitEntityByUnitId(unitId);
@@ -105,6 +111,17 @@ public class RoomEntity extends BaseEntity
 		return unitEntityList.stream().filter(entity -> entity.getHp() <= 0).collect(Collectors.toList());
 	}
 
+	public List<UnitEntity> GetCpuUnitEntityList()
+	{
+		return this.GetUnitEntityListByUserId(BattleContext.CpuUserId);
+	}
+
+	public List<UnitEntity> GetNotAttackStandyCpuUnitEntityList()
+	{
+		List<UnitEntity> unitEntityList = this.GetCpuUnitEntityList();
+		return unitEntityList.stream().filter(entity -> !this.isAttackStandyByUnitId(entity.getUnitId())).collect(Collectors.toList());
+	}
+
 	public List<Long> GetDefenseUnitIdList()
 	{
 		return this.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
@@ -113,5 +130,10 @@ public class RoomEntity extends BaseEntity
 	private void updateReadyForBattle()
 	{
 		this.readyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
+	}
+
+	private boolean isAttackStandyByUnitId(Long unitId)
+	{
+		return this.attackStandyEntityList.stream().anyMatch(entity -> entity.getUnitId() == unitId);
 	}
 }
