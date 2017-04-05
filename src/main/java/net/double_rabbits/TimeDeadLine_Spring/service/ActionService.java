@@ -46,26 +46,6 @@ public class ActionService extends BaseService
 		return attackStandyValueList;
 	}
 
-	public void DoAction()
-	{
-		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
-		for (RoomEntity roomEntity : roomEntityList) {
-			if (roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
-			if (roomEntity.getAttackStandyEntityList().size() <= 0) continue;
-
-			// Do Action.
-			roomEntity.getAttackStandyEntityList().forEach(entity -> {
-				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
-				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList());
-				actionResultEntity.setActionResultDetailEntityList(actionHelper.Do());
-				roomEntity.getActionResultEntityList().add(actionResultEntity);
-			});
-
-			roomEntity.getAttackStandyEntityList().clear();
-			this.roomRepository.save(roomEntity);
-		}
-	}
-
 	public List<ActionResultValue> GetActionResultList(UserEntity userEntity)
 	{
 		RoomEntity roomEntity;
@@ -80,7 +60,6 @@ public class ActionService extends BaseService
 			try {
 				Thread.sleep(300);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -91,5 +70,43 @@ public class ActionService extends BaseService
 		});
 
 		return actionResultValueList;
+	}
+
+	///// By Scheduler.
+	// public void AllCpuAttackStandy()
+	// {
+	// List<RoomEntity> roomEntityList =
+	// this.roomRepository.findByBattleModeType(BattleModeType.Single);
+	// for (RoomEntity roomEntity : roomEntityList) {
+	// if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+	//
+	// roomEntity.GetNotAttackStandyCpuUnitEntityList().forEach(entity -> {
+	// AttackStandyEntity attackStandyEntity = new
+	// AttackStandyEntity(roomEntity, entity.getUnitId(), ActionType.Attack);
+	// roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
+	// });
+	// }
+	//
+	// this.roomRepository.save(roomEntityList);
+	// }
+
+	public void DoAllAction()
+	{
+		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
+		for (RoomEntity roomEntity : roomEntityList) {
+			if (roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
+			if (roomEntity.getAttackStandyEntityList().size() <= 0) continue;
+
+			// Do Action.
+			roomEntity.getAttackStandyEntityList().forEach(entity -> {
+				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
+				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList(), this.unitRepository);
+				actionResultEntity.setActionResultDetailEntityList(actionHelper.Do());
+				roomEntity.getActionResultEntityList().add(actionResultEntity);
+			});
+
+			roomEntity.getAttackStandyEntityList().clear();
+			this.roomRepository.save(roomEntity);
+		}
 	}
 }
