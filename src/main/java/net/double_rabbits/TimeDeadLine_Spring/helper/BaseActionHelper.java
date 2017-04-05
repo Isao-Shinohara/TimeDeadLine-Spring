@@ -2,21 +2,29 @@ package net.double_rabbits.TimeDeadLine_Spring.helper;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
+import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
+import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 
 abstract public class BaseActionHelper
 {
+	protected static final Logger logger = LoggerFactory.getLogger(BaseService.class);
+
 	protected ActionResultEntity actionResultEntity;
 	protected List<Long> defenseUnitIdList;
+	protected UnitRepository unitRepository;
 
-	public BaseActionHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList)
+	public BaseActionHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList, UnitRepository unitRepository)
 	{
 		this.actionResultEntity = actionResultEntity;
 		this.defenseUnitIdList = defenseUnitIdList;
+		this.unitRepository = unitRepository;
 	}
 
 	abstract public List<ActionResultDetailEntity> Do();
@@ -29,9 +37,15 @@ abstract public class BaseActionHelper
 
 	protected int calcHpByDamage(UnitEntity targetUnitEntity, int minDamage, int maxDamage)
 	{
+		// Calc.
 		int damage = ThreadLocalRandom.current().nextInt(minDamage, maxDamage + 1);
 		damage = (int) (damage * this.getDefenseRate(targetUnitEntity));
 		int remainHp = targetUnitEntity.getHp() - damage;
+
+		// Save Data.
+		targetUnitEntity.setHp(remainHp);
+		this.unitRepository.save(targetUnitEntity);
+
 		return remainHp > 0 ? remainHp : 0;
 	}
 

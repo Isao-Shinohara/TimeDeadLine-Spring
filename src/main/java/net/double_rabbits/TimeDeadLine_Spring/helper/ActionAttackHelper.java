@@ -7,12 +7,13 @@ import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
+import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
 
 public class ActionAttackHelper extends BaseActionHelper
 {
-	public ActionAttackHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList)
+	public ActionAttackHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList, UnitRepository unitRepository)
 	{
-		super(actionResultEntity, defenseUnitIdList);
+		super(actionResultEntity, defenseUnitIdList, unitRepository);
 	}
 
 	@Override

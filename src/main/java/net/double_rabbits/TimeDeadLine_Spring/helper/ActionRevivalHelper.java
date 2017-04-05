@@ -5,12 +5,13 @@ import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
+import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
 
 public class ActionRevivalHelper extends BaseActionHelper
 {
-	public ActionRevivalHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList)
+	public ActionRevivalHelper(ActionResultEntity actionResultEntity, List<Long> defenseUnitIdList, UnitRepository unitRepository)
 	{
-		super(actionResultEntity, defenseUnitIdList);
+		super(actionResultEntity, defenseUnitIdList, unitRepository);
 	}
 
 	@Override
@@ -19,9 +20,14 @@ public class ActionRevivalHelper extends BaseActionHelper
 		// Target.
 		UnitEntity targetUnitEntity = this.actionResultEntity.getRoomEntity().GetUnitEntityByUnitId(this.actionResultEntity.getUnitId());
 
-		// Damage.
+		// Revival.
 		List<ActionResultDetailEntity> actionResultDetailEntityList = new ArrayList<ActionResultDetailEntity>();
-		actionResultDetailEntityList.add(new ActionResultDetailEntity(targetUnitEntity.getUnitId(), targetUnitEntity.getMaxHp(), this.actionResultEntity));
+		int hp = targetUnitEntity.getMaxHp();
+		actionResultDetailEntityList.add(new ActionResultDetailEntity(targetUnitEntity.getUnitId(), hp, this.actionResultEntity));
+
+		// Save Data.
+		targetUnitEntity.setHp(hp);
+		this.unitRepository.save(targetUnitEntity);
 
 		return actionResultDetailEntityList;
 	}

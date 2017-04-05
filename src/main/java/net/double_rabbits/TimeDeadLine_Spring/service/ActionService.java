@@ -56,7 +56,7 @@ public class ActionService extends BaseService
 			// Do Action.
 			roomEntity.getAttackStandyEntityList().forEach(entity -> {
 				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
-				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList());
+				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList(), this.unitRepository);
 				actionResultEntity.setActionResultDetailEntityList(actionHelper.Do());
 				roomEntity.getActionResultEntityList().add(actionResultEntity);
 			});
