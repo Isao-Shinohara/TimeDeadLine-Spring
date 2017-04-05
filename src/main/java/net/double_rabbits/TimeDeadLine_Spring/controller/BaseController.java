@@ -19,6 +19,7 @@ import net.double_rabbits.TimeDeadLine_Spring.service.UserService;
 abstract public class BaseController<T, U>
 {
 	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+
 	protected T req;
 	protected U res;
 	protected Class<T> reqClazz;

@@ -20,7 +20,7 @@ import net.double_rabbits.TimeDeadLine_Spring.service.BaseService;
 
 public class BaseScheduledTasks
 {
-	protected static final Logger log = LoggerFactory.getLogger(TimeScheduledTasks.class);
+	protected static final Logger logger = LoggerFactory.getLogger(TimeScheduledTasks.class);
 
 	@Autowired
 	protected SendMessageFactory sendMessageFactory;
@@ -43,7 +43,7 @@ public class BaseScheduledTasks
 	@Autowired
 	protected AttackStandyEntityRepository attackStandyEntityRepository;
 
-	protected void sendMessage(BaseResponse response, List<UserEntity> receiveUserEntityList)
+	synchronized protected void sendMessage(BaseResponse response, List<UserEntity> receiveUserEntityList)
 	{
 		Map<UserEntity, BinaryMessage> map = this.sendMessageFactory.Create("system", receiveUserEntityList, response);
 		for (Entry<UserEntity, BinaryMessage> entry : map.entrySet()) {
