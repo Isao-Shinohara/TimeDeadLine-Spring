@@ -11,8 +11,9 @@ import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.NextTurnController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.RoundStartController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.TurnBasedController;
+import net.double_rabbits.TimeDeadLine_Spring.core.BinaryMessageFactory;
 import net.double_rabbits.TimeDeadLine_Spring.core.Dispatcher;
-import net.double_rabbits.TimeDeadLine_Spring.core.SendMessageFactory;
+import net.double_rabbits.TimeDeadLine_Spring.core.SendMessage;
 
 @Configuration
 public class AppConfig
@@ -24,9 +25,15 @@ public class AppConfig
 	}
 
 	@Bean
-	public SendMessageFactory SendMessageFactory()
+	public SendMessage SendMessage()
 	{
-		return new SendMessageFactory();
+		return new SendMessage();
+	}
+
+	@Bean
+	public BinaryMessageFactory BinaryMessageFactory()
+	{
+		return new BinaryMessageFactory();
 	}
 
 	@Bean

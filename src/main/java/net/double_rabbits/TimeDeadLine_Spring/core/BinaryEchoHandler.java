@@ -28,6 +28,9 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 	private Dispatcher dispatcher;
 
 	@Autowired
+	private SendMessage sendMessage;
+
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -60,7 +63,7 @@ public class BinaryEchoHandler extends BinaryWebSocketHandler
 			map = dispatcher.dispatch(session.getId(), message);
 			for (Entry<UserEntity, BinaryMessage> entry : map.entrySet()) {
 				// Send Message.
-				this.sessionPool.Get(entry.getKey().getSessionId()).sendMessage(entry.getValue());
+				this.sendMessage.Send(entry.getKey(), entry.getValue());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
