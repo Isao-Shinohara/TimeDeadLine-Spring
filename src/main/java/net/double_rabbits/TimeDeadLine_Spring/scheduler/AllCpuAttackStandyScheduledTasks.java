@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.AttackStandyResponse;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
@@ -26,9 +27,14 @@ public class AllCpuAttackStandyScheduledTasks extends BaseScheduledTasks
 
 			// Action.
 			roomEntity.GetNotAttackStandyCpuUnitEntityList().forEach(entity -> {
+				// Draw lots AttackStandy.
 				if (!this.canAttackStandyByDrawingLots(roomEntity)) return;
 
-				AttackStandyEntity attackStandyEntity = new AttackStandyEntity(roomEntity, entity.getUnitId(), ActionType.Attack);
+				// Draw lots ActionType.
+				ActionType actionType = getActionTypeByDrawingLots(entity);
+
+				// Add List.
+				AttackStandyEntity attackStandyEntity = new AttackStandyEntity(roomEntity, entity.getUnitId(), actionType);
 				roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
 			});
 			this.attackStandyEntityRepository.save(roomEntity.getAttackStandyEntityList());
@@ -45,7 +51,7 @@ public class AllCpuAttackStandyScheduledTasks extends BaseScheduledTasks
 		}
 	}
 
-	public boolean canAttackStandyByDrawingLots(RoomEntity roomEntity)
+	private boolean canAttackStandyByDrawingLots(RoomEntity roomEntity)
 	{
 		int seconds = roomEntity.getTurnBasedEntity().getSeconds();
 		int actionRate = (int) (100 * ((float) (BattleContext.OnePeriodSeconds - seconds + 1) / BattleContext.OnePeriodSeconds));
@@ -53,5 +59,44 @@ public class AllCpuAttackStandyScheduledTasks extends BaseScheduledTasks
 
 		int lot = ThreadLocalRandom.current().nextInt(1, 100 + 1);
 		return lot > notActionRate;
+	}
+
+	private ActionType getActionTypeByDrawingLots(UnitEntity unitEntity)
+	{
+		if (unitEntity.IsAlive()) {
+			return this.getActionTypeByDrawingLotsWhenAlive(unitEntity);
+		} else {
+			return this.getActionTypeByDrawingLotsWhenDead(unitEntity);
+		}
+	}
+
+	private ActionType getActionTypeByDrawingLotsWhenAlive(UnitEntity unitEntity)
+	{
+		int attackRate = 70;
+		int skillRate = 15;
+		int defenseRate = 10;
+		int revivalRate = 5;
+		int sumRate = attackRate + skillRate + defenseRate + revivalRate;
+
+		int lot = ThreadLocalRandom.current().nextInt(1, sumRate + 1);
+
+		if (lot <= attackRate) return ActionType.Attack;
+		lot -= attackRate;
+
+		if (lot <= skillRate) return ActionType.Skill;
+		lot -= skillRate;
+
+		if (lot <= defenseRate) return ActionType.Defense;
+		lot -= defenseRate;
+
+		if (lot <= revivalRate) return ActionType.Revival;
+		lot -= revivalRate;
+
+		return ActionType.None;
+	}
+
+	private ActionType getActionTypeByDrawingLotsWhenDead(UnitEntity unitEntity)
+	{
+		return ActionType.Revival;
 	}
 }
