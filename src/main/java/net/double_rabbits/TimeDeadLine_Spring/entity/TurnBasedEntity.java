@@ -65,9 +65,9 @@ public class TurnBasedEntity extends BaseEntity
 		if (!this.hasBattleStarted) return;
 		if (this.hasBattleEnded) return;
 		if (!this.isInputPhase) return;
+
 		if (this.seconds <= 0) {
-			this.canCountDown = false;
-			this.isInputPhase = false;
+			this.battleEnd();
 			return;
 		}
 
@@ -78,5 +78,15 @@ public class TurnBasedEntity extends BaseEntity
 		}
 
 		this.seconds--;
+	}
+
+	private void battleEnd()
+	{
+		this.canCountDown = false;
+		this.isInputPhase = false;
+
+		if (this.round == BattleContext.FinalRound) {
+			this.hasBattleEnded = true;
+		}
 	}
 }

@@ -10,7 +10,6 @@ import net.double_rabbits.TimeDeadLine_Spring.controller.GetActionResultControll
 import net.double_rabbits.TimeDeadLine_Spring.controller.LoginController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.NextTurnController;
 import net.double_rabbits.TimeDeadLine_Spring.controller.RoundStartController;
-import net.double_rabbits.TimeDeadLine_Spring.controller.TurnBasedController;
 import net.double_rabbits.TimeDeadLine_Spring.core.BinaryMessageFactory;
 import net.double_rabbits.TimeDeadLine_Spring.core.Dispatcher;
 import net.double_rabbits.TimeDeadLine_Spring.core.SendMessage;
@@ -58,12 +57,6 @@ public class AppConfig
 	public BattleStartController BattleStartController()
 	{
 		return new BattleStartController();
-	}
-
-	@Bean
-	public TurnBasedController TurnBasedController()
-	{
-		return new TurnBasedController();
 	}
 
 	@Bean

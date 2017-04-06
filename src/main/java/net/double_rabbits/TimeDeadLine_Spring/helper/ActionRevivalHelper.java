@@ -17,6 +17,10 @@ public class ActionRevivalHelper extends BaseActionHelper
 	@Override
 	public List<ActionResultDetailEntity> Do()
 	{
+		// Alive or Dead.
+		UnitEntity unitEntity = this.getUnitEntityByUnitId(this.actionResultEntity.getUnitId());
+		if (unitEntity.IsAlive()) return this.getNonActionResultDetailEntityList();
+
 		// Target.
 		UnitEntity targetUnitEntity = this.actionResultEntity.getRoomEntity().GetUnitEntityByUnitId(this.actionResultEntity.getUnitId());
 		if (targetUnitEntity.IsAlive()) { return this.getNonActionResultDetailEntityList(); }
