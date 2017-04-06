@@ -12,7 +12,7 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BaseResponse;
 import net.double_rabbits.TimeDeadLine_Spring.repository.UserRepository;
 
-public class SendMessageFactory
+public class BinaryMessageFactory
 {
 	protected static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
 

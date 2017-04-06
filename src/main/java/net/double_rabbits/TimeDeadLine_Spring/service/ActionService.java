@@ -3,12 +3,9 @@ package net.double_rabbits.TimeDeadLine_Spring.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
-import net.double_rabbits.TimeDeadLine_Spring.helper.ActionHelperFactory;
-import net.double_rabbits.TimeDeadLine_Spring.helper.BaseActionHelper;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionResultValue;
 import net.double_rabbits.TimeDeadLine_Spring.value.ActionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.AttackStandyValue;
@@ -70,43 +67,5 @@ public class ActionService extends BaseService
 		});
 
 		return actionResultValueList;
-	}
-
-	///// By Scheduler.
-	// public void AllCpuAttackStandy()
-	// {
-	// List<RoomEntity> roomEntityList =
-	// this.roomRepository.findByBattleModeType(BattleModeType.Single);
-	// for (RoomEntity roomEntity : roomEntityList) {
-	// if (!roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
-	//
-	// roomEntity.GetNotAttackStandyCpuUnitEntityList().forEach(entity -> {
-	// AttackStandyEntity attackStandyEntity = new
-	// AttackStandyEntity(roomEntity, entity.getUnitId(), ActionType.Attack);
-	// roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
-	// });
-	// }
-	//
-	// this.roomRepository.save(roomEntityList);
-	// }
-
-	public void DoAllAction()
-	{
-		List<RoomEntity> roomEntityList = this.roomRepository.findAll();
-		for (RoomEntity roomEntity : roomEntityList) {
-			if (roomEntity.getTurnBasedEntity().getIsInputPhase()) continue;
-			if (roomEntity.getAttackStandyEntityList().size() <= 0) continue;
-
-			// Do Action.
-			roomEntity.getAttackStandyEntityList().forEach(entity -> {
-				ActionResultEntity actionResultEntity = new ActionResultEntity(roomEntity, entity);
-				BaseActionHelper actionHelper = ActionHelperFactory.Create(actionResultEntity, roomEntity.GetDefenseUnitIdList(), this.unitRepository);
-				actionResultEntity.setActionResultDetailEntityList(actionHelper.Do());
-				roomEntity.getActionResultEntityList().add(actionResultEntity);
-			});
-
-			roomEntity.getAttackStandyEntityList().clear();
-			this.roomRepository.save(roomEntity);
-		}
 	}
 }

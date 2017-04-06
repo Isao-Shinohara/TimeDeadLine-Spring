@@ -24,7 +24,7 @@ public class Dispatcher
 	private ApplicationContext context;
 
 	@Autowired
-	private SendMessageFactory sendMessageFactory;
+	private BinaryMessageFactory binaryMessageFactory;
 
 	@Autowired
 	UserRepository userRepository;
@@ -51,12 +51,11 @@ public class Dispatcher
 			BaseResponse response = controller.GetResponse();
 			List<UserEntity> receiveUserEntityList = controller.GetReceiveUserEntityList();
 
-			return this.sendMessageFactory.Create(sendUserEntity.getUid(), receiveUserEntityList, response);
+			return this.binaryMessageFactory.Create(sendUserEntity.getUid(), receiveUserEntityList, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
 
-		return this.sendMessageFactory.CreateAsEmpty();
+		return this.binaryMessageFactory.CreateAsEmpty();
 	}
 }
-
