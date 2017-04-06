@@ -19,6 +19,10 @@ public class ActionAttackHelper extends BaseActionHelper
 	@Override
 	public List<ActionResultDetailEntity> Do()
 	{
+		// Alive or Dead.
+		UnitEntity unitEntity = this.getUnitEntityByUnitId(this.actionResultEntity.getUnitId());
+		if (unitEntity.IsDead()) return this.getNonActionResultDetailEntityList();
+
 		// Target.
 		List<UnitEntity> opponentUnitEntityList = this.getOpponentAliveUnitEntityList();
 		if (opponentUnitEntityList.size() <= 0) { return this.getNonActionResultDetailEntityList(); }

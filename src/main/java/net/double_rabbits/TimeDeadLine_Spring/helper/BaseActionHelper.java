@@ -30,6 +30,11 @@ abstract public class BaseActionHelper
 
 	abstract public List<ActionResultDetailEntity> Do();
 
+	protected UnitEntity getUnitEntityByUnitId(Long unitId)
+	{
+		return this.unitRepository.findOne(unitId);
+	}
+
 	protected List<UnitEntity> getOpponentUnitEntityList()
 	{
 		RoomEntity roomEntity = this.actionResultEntity.getRoomEntity();

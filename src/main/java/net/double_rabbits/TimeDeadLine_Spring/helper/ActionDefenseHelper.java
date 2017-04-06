@@ -1,9 +1,9 @@
 package net.double_rabbits.TimeDeadLine_Spring.helper;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultDetailEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.ActionResultEntity;
+import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
 import net.double_rabbits.TimeDeadLine_Spring.repository.UnitRepository;
 
 public class ActionDefenseHelper extends BaseActionHelper
@@ -16,6 +16,10 @@ public class ActionDefenseHelper extends BaseActionHelper
 	@Override
 	public List<ActionResultDetailEntity> Do()
 	{
-		return new ArrayList<ActionResultDetailEntity>();
+		// Alive or Dead.
+		UnitEntity unitEntity = this.getUnitEntityByUnitId(this.actionResultEntity.getUnitId());
+		if (unitEntity.IsDead()) return this.getNonActionResultDetailEntityList();
+
+		return this.getNonActionResultDetailEntityList();
 	}
 }
