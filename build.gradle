@@ -7,16 +7,32 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+group = 'isaoshinohara'
 
 jar {
 	baseName = 'TimeDeadLine_Spring'
 	version = '0.0.1-SNAPSHOT'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  push = true
+  applicationName = 'timedeadline_spring'
+  dockerfile = file('src/main/docker/Dockerfile')
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+    }
+  }
 }
 
 sourceCompatibility = 1.8
