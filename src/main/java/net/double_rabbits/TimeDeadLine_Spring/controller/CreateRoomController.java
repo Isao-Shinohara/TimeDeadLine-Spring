@@ -25,6 +25,6 @@ public class CreateRoomController extends BaseController<CreateRoomRequest, Crea
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.userService.GetUserEntityOnlyList(this.sendUserEntity);
+		return this.userService.GetUserEntitySelfList(this.sendUserEntity);
 	}
 }

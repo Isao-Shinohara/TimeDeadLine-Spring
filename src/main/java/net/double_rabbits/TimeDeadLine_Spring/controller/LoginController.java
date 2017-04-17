@@ -22,6 +22,6 @@ public class LoginController extends BaseController<BaseRequest, BaseResponse>
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.userService.GetUserEntityOnlyList(this.sendUserEntity);
+		return this.userService.GetUserEntitySelfList(this.sendUserEntity);
 	}
 }

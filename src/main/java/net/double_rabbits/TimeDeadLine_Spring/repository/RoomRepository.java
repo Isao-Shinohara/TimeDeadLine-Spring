@@ -13,5 +13,7 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long>
 
 	RoomEntity findByOwnerUserId(Long ownerUserId);
 
+	RoomEntity findByRoomNumberAndIsReadyForBattle(int roomNumber, boolean isReadyForBattle);
+
 	List<RoomEntity> findByBattleModeType(BattleModeType battleModeType);
 }

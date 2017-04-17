@@ -7,6 +7,7 @@ public class BattleContext
 	public static int AllUnitNum = 10;
 	public static int TemNum = 2;
 	public static Long CpuUserId = -1L;
+	public static Long ErrorRoomId = -1L;
 
 	public static int UnitMaxHp = 15000;
 	public static float DefenseRate = 0.5f;
