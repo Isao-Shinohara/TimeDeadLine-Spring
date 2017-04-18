@@ -19,7 +19,7 @@ public class JoinRoomController extends BaseController<JoinRoomRequest, JoinRoom
 	public JoinRoomResponse CreateResponse(JoinRoomRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.Join(this.sendUserEntity, req.RoomNumber);
-		return new JoinRoomResponse(roomEntity);
+		return new JoinRoomResponse(roomEntity, this.req.RoomNumber);
 	}
 
 	@Override

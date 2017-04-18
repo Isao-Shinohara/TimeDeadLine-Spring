@@ -13,10 +13,12 @@ import net.double_rabbits.TimeDeadLine_Spring.value.MsgPackExtensionType;
 public class JoinRoomResponse extends BaseResponse
 {
 	public Long RoomId;
+	public int RoomNumber;
 
-	public JoinRoomResponse(RoomEntity roomEntity)
+	public JoinRoomResponse(RoomEntity roomEntity, int roomNumber)
 	{
 		super(MsgPackExtensionType.JoinRoom);
 		this.RoomId = roomEntity != null ? roomEntity.getRoomId() : BattleContext.ErrorRoomId;
+		this.RoomNumber = roomNumber;
 	}
 }
