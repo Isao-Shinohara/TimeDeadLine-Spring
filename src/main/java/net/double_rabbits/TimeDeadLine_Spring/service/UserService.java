@@ -21,7 +21,7 @@ public class UserService extends BaseService
 		return this.userRepository.findBySessionId(sessionId);
 	}
 
-	public List<UserEntity> GetUserEntityOnlyList(UserEntity userEntity)
+	public List<UserEntity> GetUserEntitySelfList(UserEntity userEntity)
 	{
 		List<UserEntity> list = new ArrayList<UserEntity>();
 		list.add(userEntity);

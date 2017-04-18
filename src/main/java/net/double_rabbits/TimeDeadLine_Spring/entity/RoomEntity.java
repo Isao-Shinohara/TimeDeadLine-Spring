@@ -30,7 +30,7 @@ public class RoomEntity extends BaseEntity
 	private Long roomUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
-	private boolean readyForBattle;
+	private boolean isReadyForBattle;
 
 	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL)
 	private TurnBasedEntity turnBasedEntity;
@@ -60,14 +60,14 @@ public class RoomEntity extends BaseEntity
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
 		this.actionResultEntityList = new ArrayList<ActionResultEntity>();
-		this.readyForBattle = false;
+		this.isReadyForBattle = false;
 	}
 
 	public void AddUserEntity(UserEntity userEntity)
 	{
 		RoomUserEntity roomUserEntity = new RoomUserEntity(userEntity.getUserId(), this);
 		this.roomUserEntityList.add(roomUserEntity);
-		this.updateReadyForBattle();
+		this.updateIsReadyForBattle();
 	}
 
 	public void RemoveUserEntity(UserEntity userEntity)
@@ -75,7 +75,7 @@ public class RoomEntity extends BaseEntity
 		this.roomUserEntityList.removeIf(roomUserEntity -> {
 			return roomUserEntity.getUserId() == userEntity.getUserId();
 		});
-		this.updateReadyForBattle();
+		this.updateIsReadyForBattle();
 	}
 
 	public boolean HasGotRoundResult()
@@ -127,9 +127,9 @@ public class RoomEntity extends BaseEntity
 		return this.getAttackStandyEntityList().stream().filter(entity -> entity.getActionType() == ActionType.Defense).map(entity -> entity.getUnitId()).collect(Collectors.toList());
 	}
 
-	private void updateReadyForBattle()
+	private void updateIsReadyForBattle()
 	{
-		this.readyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
+		this.isReadyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
 	}
 
 	private boolean isAttackStandyByUnitId(Long unitId)
