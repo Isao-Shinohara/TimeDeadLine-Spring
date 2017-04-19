@@ -1,4 +1,4 @@
-package net.double_rabbits.TimeDeadLine_Spring.network;
+package net.double_rabbits.TimeDeadLine_Spring.value;
 
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
 

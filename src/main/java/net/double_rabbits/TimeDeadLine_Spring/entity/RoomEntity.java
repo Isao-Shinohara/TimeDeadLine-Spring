@@ -27,7 +27,6 @@ public class RoomEntity extends BaseEntity
 	@GeneratedValue
 	private Long roomId;
 	private Long ownerUserId;
-	private Long roomUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
 	private boolean isReadyForBattle;
