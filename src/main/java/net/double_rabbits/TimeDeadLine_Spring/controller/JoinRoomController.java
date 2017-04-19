@@ -19,13 +19,13 @@ public class JoinRoomController extends BaseController<JoinRoomRequest, JoinRoom
 	public JoinRoomResponse CreateResponse(JoinRoomRequest req)
 	{
 		RoomEntity roomEntity = this.roomService.Join(this.sendUserEntity, req.RoomNumber);
-		return new JoinRoomResponse(roomEntity, this.req.RoomNumber);
+		return new JoinRoomResponse(this.req.RoomNumber, roomEntity);
 	}
 
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		if (this.res.RoomId != BattleContext.ErrorRoomId) {
+		if (this.res.RoomValue.RoomId != BattleContext.ErrorRoomId) {
 			// Success.
 			return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 		} else {

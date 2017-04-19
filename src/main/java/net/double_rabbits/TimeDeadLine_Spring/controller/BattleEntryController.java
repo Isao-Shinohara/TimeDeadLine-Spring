@@ -5,8 +5,8 @@ import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleEntryRequest;
 import net.double_rabbits.TimeDeadLine_Spring.network.BattleEntryResponse;
-import net.double_rabbits.TimeDeadLine_Spring.network.UnitStatusValue;
 import net.double_rabbits.TimeDeadLine_Spring.value.TurnBasedValue;
+import net.double_rabbits.TimeDeadLine_Spring.value.UnitStatusValue;
 
 public class BattleEntryController extends BaseController<BattleEntryRequest, BattleEntryResponse>
 {

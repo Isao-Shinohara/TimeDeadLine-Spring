@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.double_rabbits.TimeDeadLine_Spring.value.MsgPackExtensionType;
 import net.double_rabbits.TimeDeadLine_Spring.value.TurnBasedValue;
+import net.double_rabbits.TimeDeadLine_Spring.value.UnitStatusValue;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
-import net.double_rabbits.TimeDeadLine_Spring.network.UnitStatusValue;
+import net.double_rabbits.TimeDeadLine_Spring.value.UnitStatusValue;
 
 @Service
 public class UnitService extends BaseService
