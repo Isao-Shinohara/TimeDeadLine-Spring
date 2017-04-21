@@ -50,6 +50,7 @@ public class RoomService extends BaseService
 		if (!Objects.equals(roomEntity, null)) {
 			// Room.
 			roomEntity.AddUserEntity(userEntity);
+			this.roomRepository.save(roomEntity);
 
 			// User.
 			userEntity.setRoomId(roomEntity.getRoomId());
