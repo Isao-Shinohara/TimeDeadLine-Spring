@@ -29,19 +29,24 @@ public class RoomEntity extends BaseEntity
 	private Long ownerUserId;
 	private BattleModeType battleModeType;
 	private int roomNumber;
+	private int entryNum;
 	private boolean isReadyForBattle;
 
 	@OneToOne(mappedBy = "roomEntity", cascade = CascadeType.ALL)
 	private TurnBasedEntity turnBasedEntity;
+
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<RoomUserEntity> roomUserEntityList;
+
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<UnitEntity> unitEntityList;
+
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AttackStandyEntity> attackStandyEntityList;
+
 	@OneToMany(mappedBy = "roomEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ActionResultEntity> actionResultEntityList;
@@ -59,6 +64,7 @@ public class RoomEntity extends BaseEntity
 		this.roomNumber = roomNumber;
 		this.roomUserEntityList = new ArrayList<RoomUserEntity>();
 		this.actionResultEntityList = new ArrayList<ActionResultEntity>();
+		this.entryNum = 0;
 		this.isReadyForBattle = false;
 	}
 
@@ -66,7 +72,6 @@ public class RoomEntity extends BaseEntity
 	{
 		RoomUserEntity roomUserEntity = new RoomUserEntity(userEntity.getUserId(), this);
 		this.roomUserEntityList.add(roomUserEntity);
-		this.updateIsReadyForBattle();
 	}
 
 	public void RemoveUserEntity(UserEntity userEntity)
@@ -74,6 +79,11 @@ public class RoomEntity extends BaseEntity
 		this.roomUserEntityList.removeIf(roomUserEntity -> {
 			return roomUserEntity.getUserId() == userEntity.getUserId();
 		});
+	}
+
+	public void CountEntryNum()
+	{
+		this.entryNum++;
 		this.updateIsReadyForBattle();
 	}
 
@@ -128,7 +138,7 @@ public class RoomEntity extends BaseEntity
 
 	private void updateIsReadyForBattle()
 	{
-		this.isReadyForBattle = this.roomUserEntityList.size() == this.battleModeType.ordinal();
+		this.isReadyForBattle = this.entryNum == this.battleModeType.ordinal();
 	}
 
 	private boolean isAttackStandyByUnitId(Long unitId)
