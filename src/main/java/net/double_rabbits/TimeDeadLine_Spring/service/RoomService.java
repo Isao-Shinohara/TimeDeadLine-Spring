@@ -73,7 +73,7 @@ public class RoomService extends BaseService
 		}
 	}
 
-	public RoomEntity BattleEntry(Long roomId, Long userId)
+	public synchronized RoomEntity BattleEntry(Long roomId, Long userId)
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(roomId);
 		List<UnitEntity> unitEntityList = this.unitRepository.findByRoomEntity(roomEntity);
@@ -88,6 +88,8 @@ public class RoomService extends BaseService
 			count++;
 			if (count >= BattleContext.AllUnitNum / BattleContext.TemNum) break;
 		}
+		roomEntity.CountEntryNum();
+		this.roomRepository.save(roomEntity);
 
 		// For CPU when SingleMode.
 		if (roomEntity.getBattleModeType() == BattleModeType.Single) {
