@@ -7,7 +7,7 @@ public class TurnBasedValue
 	public Boolean HasBattleStarted;
 	public Boolean HasBattleEnded;
 	public Boolean IsInputPhase;
-	public Boolean IsReadyForNewRound;
+	public Boolean IsReadyForNextTurn;
 	public int Round;
 	public int Seconds;
 	public int OnePeriodSeconds;
@@ -20,6 +20,6 @@ public class TurnBasedValue
 		this.Round = turnBasedEntity.getRound();
 		this.Seconds = turnBasedEntity.getSeconds();
 		this.OnePeriodSeconds = turnBasedEntity.getOnePeriodSeconds();
-		this.IsReadyForNewRound = turnBasedEntity.isReadyForNewRound();
+		this.IsReadyForNextTurn = turnBasedEntity.isReadyForNextTurn();
 	}
 }
