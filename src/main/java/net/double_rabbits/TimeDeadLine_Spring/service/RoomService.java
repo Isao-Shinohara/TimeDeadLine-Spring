@@ -24,9 +24,10 @@ public class RoomService extends BaseService
 			roomEntity.AddUserEntity(userEntity);
 
 			// TurnBased
-			TurnBasedEntity timeEntity = new TurnBasedEntity();
-			timeEntity.setRoomEntity(roomEntity);
-			roomEntity.setTurnBasedEntity(timeEntity);
+			TurnBasedEntity turnBasedEntity = new TurnBasedEntity();
+			turnBasedEntity.setBattleModeType(roomEntity.getBattleModeType());
+			turnBasedEntity.setRoomEntity(roomEntity);
+			roomEntity.setTurnBasedEntity(turnBasedEntity);
 			this.roomRepository.save(roomEntity);
 
 			// User.

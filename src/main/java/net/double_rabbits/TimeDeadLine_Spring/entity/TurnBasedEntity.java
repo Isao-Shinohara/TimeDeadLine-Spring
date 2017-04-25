@@ -7,6 +7,7 @@ import javax.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
+import net.double_rabbits.TimeDeadLine_Spring.value.BattleModeType;
 
 @Entity
 @Data
@@ -26,6 +27,11 @@ public class TurnBasedEntity extends BaseEntity
 	private int round;
 	private int seconds;
 	private int onePeriodSeconds;
+	private BattleModeType battleModeType;
+	private int readyForNextTurnNum;
+	private boolean isReadyForNextTurn;
+	private int readyForRoundStartNum;
+	private boolean isReadyForRoundStart;
 
 	public TurnBasedEntity()
 	{
@@ -42,6 +48,8 @@ public class TurnBasedEntity extends BaseEntity
 	public void BattleStart()
 	{
 		this.hasBattleStarted = true;
+		this.readyForRoundStartNum++;
+		this.isReadyForRoundStart = this.readyForRoundStartNum == this.battleModeType.ordinal();
 	}
 
 	public void BattleEnd()
@@ -53,6 +61,8 @@ public class TurnBasedEntity extends BaseEntity
 	{
 		this.round++;
 		this.seconds = BattleContext.OnePeriodSeconds;
+		this.readyForNextTurnNum++;
+		this.isReadyForNextTurn = this.readyForNextTurnNum == this.battleModeType.ordinal();
 	}
 
 	public void RountStart()
@@ -84,6 +94,8 @@ public class TurnBasedEntity extends BaseEntity
 	{
 		this.canCountDown = false;
 		this.isInputPhase = false;
+		this.readyForNextTurnNum = 0;
+		this.readyForRoundStartNum = 0;
 
 		if (this.round == BattleContext.FinalRound) {
 			this.hasBattleEnded = true;
