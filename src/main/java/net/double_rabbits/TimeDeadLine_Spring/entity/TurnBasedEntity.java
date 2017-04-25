@@ -28,8 +28,6 @@ public class TurnBasedEntity extends BaseEntity
 	private int seconds;
 	private int onePeriodSeconds;
 	private BattleModeType battleModeType;
-	private int readyForNextTurnNum;
-	private boolean isReadyForNextTurn;
 	private int readyForRoundStartNum;
 	private boolean isReadyForRoundStart;
 
@@ -59,8 +57,6 @@ public class TurnBasedEntity extends BaseEntity
 	{
 		this.round++;
 		this.seconds = BattleContext.OnePeriodSeconds;
-		this.readyForNextTurnNum++;
-		this.isReadyForNextTurn = this.readyForNextTurnNum == this.battleModeType.ordinal();
 	}
 
 	public void RountStart()
@@ -93,10 +89,8 @@ public class TurnBasedEntity extends BaseEntity
 	private void battleEnd()
 	{
 		this.canCountDown = false;
-		this.isReadyForNextTurn = false;
 		this.isReadyForRoundStart = false;
 		this.isInputPhase = false;
-		this.readyForNextTurnNum = 0;
 		this.readyForRoundStartNum = 0;
 
 		if (this.round == BattleContext.FinalRound) {
