@@ -65,9 +65,9 @@ public class TurnBasedEntity extends BaseEntity
 
 	public void RountStart()
 	{
-		this.isInputPhase = true;
 		this.readyForRoundStartNum++;
 		this.isReadyForRoundStart = this.readyForRoundStartNum == this.battleModeType.ordinal();
+		this.isInputPhase = this.readyForRoundStartNum == this.battleModeType.ordinal();
 	}
 
 	public void CountDown()
@@ -93,6 +93,8 @@ public class TurnBasedEntity extends BaseEntity
 	private void battleEnd()
 	{
 		this.canCountDown = false;
+		this.isReadyForNextTurn = false;
+		this.isReadyForRoundStart = false;
 		this.isInputPhase = false;
 		this.readyForNextTurnNum = 0;
 		this.readyForRoundStartNum = 0;
