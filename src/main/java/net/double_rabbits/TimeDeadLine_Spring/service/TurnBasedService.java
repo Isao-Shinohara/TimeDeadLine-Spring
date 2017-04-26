@@ -23,6 +23,7 @@ public class TurnBasedService extends BaseService
 	{
 		RoomEntity roomEntity = this.roomRepository.findOne(userEntity.getRoomId());
 		roomEntity.getTurnBasedEntity().NextTurn();
+		roomEntity.getActionResultEntityList().clear();
 		this.roomRepository.save(roomEntity);
 
 		return roomEntity.getTurnBasedEntity();
