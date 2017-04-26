@@ -48,8 +48,6 @@ public class TurnBasedEntity extends BaseEntity
 	public void BattleStart()
 	{
 		this.readyForBattleStartNum++;
-		logger.info(String.valueOf("this.readyForBattleStartNum " + this.readyForBattleStartNum));
-		logger.info(String.valueOf("this.battleModeType " + this.battleModeType.ordinal()));
 		this.hasBattleStarted = this.readyForBattleStartNum == this.battleModeType.ordinal();
 	}
 
