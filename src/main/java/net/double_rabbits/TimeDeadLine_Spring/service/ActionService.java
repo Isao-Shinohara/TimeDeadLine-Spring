@@ -43,7 +43,7 @@ public class ActionService extends BaseService
 		return attackStandyValueList;
 	}
 
-	public List<ActionResultValue> GetActionResultList(UserEntity userEntity)
+	public synchronized List<ActionResultValue> GetActionResultList(UserEntity userEntity)
 	{
 		RoomEntity roomEntity;
 
