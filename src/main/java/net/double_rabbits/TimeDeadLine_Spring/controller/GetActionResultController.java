@@ -24,6 +24,6 @@ public class GetActionResultController extends BaseController<BaseRequest, GetAc
 	@Override
 	public List<UserEntity> CreateReceiveUserEntityList()
 	{
-		return this.userService.GetUserEntitySelfList(this.sendUserEntity);
+		return this.userService.GetUserEntityListInOwnRoom(this.sendUserEntity);
 	}
 }
