@@ -42,11 +42,14 @@ public class TurnBasedEntity extends BaseEntity
 		this.round = 0;
 		this.seconds = BattleContext.OnePeriodSeconds;
 		this.onePeriodSeconds = BattleContext.OnePeriodSeconds;
+		this.readyForBattleStartNum = 0;
 	}
 
 	public void BattleStart()
 	{
 		this.readyForBattleStartNum++;
+		logger.info(String.valueOf("this.readyForBattleStartNum " + this.readyForBattleStartNum));
+		logger.info(String.valueOf("this.battleModeType " + this.battleModeType.ordinal()));
 		this.hasBattleStarted = this.readyForBattleStartNum == this.battleModeType.ordinal();
 	}
 
@@ -75,7 +78,7 @@ public class TurnBasedEntity extends BaseEntity
 		if (!this.isReadyForRoundStart) return;
 
 		if (this.seconds <= 0) {
-			this.battleEnd();
+			this.roundEnd();
 			return;
 		}
 
@@ -88,7 +91,7 @@ public class TurnBasedEntity extends BaseEntity
 		this.seconds--;
 	}
 
-	private void battleEnd()
+	private void roundEnd()
 	{
 		this.canCountDown = false;
 		this.isReadyForRoundStart = false;
