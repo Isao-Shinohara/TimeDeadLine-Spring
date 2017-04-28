@@ -3,7 +3,7 @@ package net.double_rabbits.TimeDeadLine_Spring.config;
 public class BattleContext
 {
 	public static int FinalRound = 2;
-	public static int OnePeriodSeconds = 3;
+	public static int OnePeriodSeconds = 10;
 	public static int AllUnitNum = 10;
 	public static int TemNum = 2;
 	public static Long CpuUserId = -1L;

@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import net.double_rabbits.TimeDeadLine_Spring.config.BattleContext;
-import net.double_rabbits.TimeDeadLine_Spring.entity.AttackStandyEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.RoomEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UnitEntity;
 import net.double_rabbits.TimeDeadLine_Spring.entity.UserEntity;
@@ -34,8 +33,7 @@ public class AllCpuAttackStandyScheduledTasks extends BaseScheduledTasks
 				ActionType actionType = getActionTypeByDrawingLots(entity);
 
 				// Add List.
-				AttackStandyEntity attackStandyEntity = new AttackStandyEntity(roomEntity, entity.getUnitId(), actionType);
-				roomEntity.getAttackStandyEntityList().add(attackStandyEntity);
+				roomEntity.AttackStandy(entity.getUnitId(), actionType);
 			});
 			this.attackStandyEntityRepository.save(roomEntity.getAttackStandyEntityList());
 
