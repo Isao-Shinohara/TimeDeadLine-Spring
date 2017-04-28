@@ -87,6 +87,14 @@ public class RoomEntity extends BaseEntity
 		this.updateIsReadyForBattle();
 	}
 
+	public void AttackStandy(Long unitId, ActionType actionType)
+	{
+		if (this.attackStandyEntityList.stream().anyMatch(e -> e.getUnitId() == unitId)) return;
+
+		AttackStandyEntity attackStandyEntity = new AttackStandyEntity(this, unitId, actionType);
+		this.getAttackStandyEntityList().add(attackStandyEntity);
+	}
+
 	public boolean HasGotRoundResult()
 	{
 		return !this.getTurnBasedEntity().getIsInputPhase() && this.getAttackStandyEntityList().size() <= 0;
