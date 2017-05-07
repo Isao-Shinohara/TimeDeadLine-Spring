@@ -6,6 +6,7 @@ public class TurnBasedValue
 {
 	public Boolean HasBattleStarted;
 	public Boolean HasBattleEnded;
+	public Boolean CanCountDown;
 	public Boolean IsInputPhase;
 	public Boolean IsReadyForRoundStart;
 	public int Round;
@@ -16,6 +17,7 @@ public class TurnBasedValue
 	{
 		this.HasBattleStarted = turnBasedEntity.getHasBattleStarted();
 		this.HasBattleEnded = turnBasedEntity.getHasBattleEnded();
+		this.CanCountDown = turnBasedEntity.getCanCountDown();
 		this.IsInputPhase = turnBasedEntity.getIsInputPhase();
 		this.Round = turnBasedEntity.getRound();
 		this.Seconds = turnBasedEntity.getSeconds();
