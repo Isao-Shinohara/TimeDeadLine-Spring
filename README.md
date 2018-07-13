@@ -2,7 +2,7 @@
 
 ## Setup
 ```
-yum install git java java-devel
+sudo yum install git java java-devel
 git clone https://github.com/Isao-Shinohara/TimeDeadLine-Spring.git
 ```
 
