@@ -2,8 +2,8 @@
 
 ## Setup
 ```
-yum install java
-sudo yum install java-devel
+yum install git java java-devel
+git clone https://github.com/Isao-Shinohara/TimeDeadLine-Spring.git
 ```
 
 ## Run In Background
