@@ -8,6 +8,6 @@ sudo yum install java-devel
 
 ## Run In Background
 ```
-./gradlew
-./gradlew bootRun
+cd TimeDeadLine-Spring
+nohup ./gradlew bootRun &
 ```
